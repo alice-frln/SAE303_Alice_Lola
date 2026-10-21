@@ -1,4 +1,4 @@
-- URL site WEB : sae303-alice-lola.netlify.app
+- URL site WEB : https://sae303.alice-frelin.fr/
 - URL Notebook Observable : https://observablehq.com/d/c17af979aabfc4af
 - Nom : Frelin
 - Prénom : Alice
