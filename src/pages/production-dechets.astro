@@ -1,0 +1,19 @@
+---
+import Layout from "../layouts/Layout.astro";
+import CarteDechets from "../components/CarteDechets.astro";
+import TraitementDechets from "../components/TraitementDechets.astro";
+---
+
+<Layout title="Production et gestion des déchets">
+  <h1>Production et gestion des déchets</h1>
+
+  <section>
+    <h2>Les zones de production de déchets réglementées</h2>
+    <CarteDechets />
+  </section>
+
+  <section>
+    <h2>Les différentes façons de traiter les déchets dangereux</h2>
+    <TraitementDechets />
+  </section>
+</Layout>

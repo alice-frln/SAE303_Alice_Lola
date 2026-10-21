@@ -23,6 +23,6 @@ const { actuelle = "" } = Astro.props;
 <script>
   document.querySelector("#commune")?.addEventListener("change", (evt) => {
     const value = (evt.target as HTMLSelectElement).value;
-    location.pathname = value ? `/risques/${value}/` : "/risques/";
+    location.pathname = value ? `/enquetes/${value}/` : "/enquetes/";
   });
 </script>

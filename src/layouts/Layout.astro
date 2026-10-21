@@ -1,6 +1,21 @@
 ---
 import "../styles/global.css";
 const { title = "SAÉ – Déchets dangereux et risques industriels" } = Astro.props;
+
+const chemin = Astro.url.pathname;
+const actif = (href) => (href === "/" ? chemin === "/" : chemin.startsWith(href));
+
+const liensHeader = [
+  { href: "/glossaire/", texte: "Glossaire" },
+  { href: "/production-dechets/", texte: "Production et gestion des déchets" },
+  { href: "/enquetes/", texte: "Enquêtes" },
+  { href: "/sources/", texte: "Sources des données" },
+];
+const liensFooter = [
+  { href: "/contact/", texte: "Contact" },
+  { href: "/a-propos/", texte: "À propos" },
+  { href: "/mentions-legales/", texte: "Mentions légales" },
+];
 ---
 
 <!doctype html>
@@ -13,15 +28,42 @@ const { title = "SAÉ – Déchets dangereux et risques industriels" } = Astro.p
     <title>{title}</title>
   </head>
   <body>
-    <slot />
+    <header>
+      <nav aria-label="Navigation principale">
+        <!-- Bouton provisoire, remplacé plus tard par un SVG -->
+        <a href="/" aria-current={actif("/") ? "page" : undefined}>Accueil</a>
+        <ul>
+          {
+            liensHeader.map(({ href, texte }) => (
+              <li>
+                <a href={href} aria-current={actif(href) ? "page" : undefined}>
+                  {texte}
+                </a>
+              </li>
+            ))
+          }
+        </ul>
+      </nav>
+    </header>
+
+    <main>
+      <slot />
+    </main>
+
+    <footer>
+      <nav aria-label="Informations sur le site">
+        <ul>
+          {
+            liensFooter.map(({ href, texte }) => (
+              <li>
+                <a href={href} aria-current={actif(href) ? "page" : undefined}>
+                  {texte}
+                </a>
+              </li>
+            ))
+          }
+        </ul>
+      </nav>
+    </footer>
   </body>
 </html>
-
-<style>
-  html,
-  body {
-    margin: 0;
-    width: 100%;
-    height: 100%;
-  }
-</style>

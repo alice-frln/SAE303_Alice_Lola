@@ -1,6 +1,5 @@
 ---
 import rawDechets from "../assets/prod_dechets_dangereux_crop.json";
-import Layout from "../layouts/Layout.astro";
 
 const operationLabels = new Map([
   ["D10", "D10 Incinération à terre"],
@@ -33,31 +32,25 @@ const maxX = Math.max(
 );
 ---
 
-<Layout title="Déchets dangereux par commune">
-  <main class="mx-auto max-w-5xl px-6 py-10">
-    <p><a href="/">← Retour à l’accueil</a></p>
-    <h1 class="text-3xl font-bold">Gestion des déchets dangereux</h1>
-    <p>
-      Comparez les quantités d’incinération (D10) et de traitement physico-chimique (D9)
-      pour une commune de Bordeaux Métropole.
-    </p>
+<p>
+  Comparez les quantités d’incinération (D10) et de traitement physico-chimique (D9)
+  pour une commune de Bordeaux Métropole.
+</p>
 
-    <label for="commune" class="mt-6 block font-semibold">Commune</label>
-    <select id="commune" name="commune" class="mt-2 rounded border px-3 py-2">
-      {communes.map((commune) => (
-        <option value={commune} selected={commune === initialCommune}>{commune}</option>
-      ))}
-    </select>
+<label for="commune" class="mt-6 block font-semibold">Commune</label>
+<select id="commune" name="commune" class="mt-2 rounded border px-3 py-2">
+  {communes.map((commune) => (
+    <option value={commune} selected={commune === initialCommune}>{commune}</option>
+  ))}
+</select>
 
-    <div
-      id="waste-chart"
-      class="mt-6"
-      data-dechets={JSON.stringify(dechets)}
-      data-max-x={maxX}
-      aria-live="polite"
-    ></div>
-  </main>
-</Layout>
+<div
+  id="waste-chart"
+  class="mt-6"
+  data-dechets={JSON.stringify(dechets)}
+  data-max-x={maxX}
+  aria-live="polite"
+></div>
 
 <script>
   import * as Plot from "@observablehq/plot";
