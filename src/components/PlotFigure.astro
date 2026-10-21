@@ -4,6 +4,8 @@ import { JSDOM } from "jsdom";
 const { options } = Astro.props;
 
 const plot = Plot.plot({ ...options, document: new JSDOM("").window.document });
+plot.style.maxWidth = "100%";
+plot.style.height = "auto";
 ---
 
 <div set:html={plot.outerHTML} />

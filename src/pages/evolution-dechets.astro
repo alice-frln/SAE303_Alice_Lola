@@ -1,0 +1,135 @@
+---
+import Layout from "../layouts/Layout.astro";
+import * as Plot from "@observablehq/plot";
+import PlotFigure from "../components/PlotFigure.astro";
+import dechets2005 from "../assets/Prod_dechets_dangereux_2005_crop.json";
+import dechets2010 from "../assets/Prod_dechets_dangereux_2010_crop.json";
+import dechets2015 from "../assets/Prod_dechets_dangereux_2015_crop.json";
+import dechets2020 from "../assets/Prod_dechets_dangereux_2020_crop.json";
+import dechets2025 from "../assets/Prod_dechets_dangereux_2025_crop.json";
+import communesGeoJson from "../assets/fv_commu_s.geojson?raw";
+
+const communesGeo = JSON.parse(communesGeoJson) as {
+  features: Array<{ properties: { insee: string | number | null } }>;
+};
+
+const jeuxParAnnee = [
+  { annee: 2005, lignes: dechets2005 },
+  { annee: 2010, lignes: dechets2010 },
+  { annee: 2015, lignes: dechets2015 },
+  { annee: 2020, lignes: dechets2020 },
+  { annee: 2025, lignes: dechets2025 },
+];
+
+const communesMetropole = new Set(
+  communesGeo.features.map((feature) =>
+    String(feature.properties.insee ?? "").trim().padStart(5, "0"),
+  ),
+);
+
+const propres = jeuxParAnnee.map(({ annee, lignes }) => ({
+  annee,
+  lignes: lignes.flatMap((ligne) => {
+    const id = String(ligne.identifiant ?? "").trim().padStart(10, "0");
+    const insee = String(ligne.code_insee ?? "").trim().padStart(5, "0");
+    if (id === "0000000000" || !communesMetropole.has(insee)) return [];
+
+    const rawQuantite = ligne.quantite;
+    const quantite =
+      typeof rawQuantite === "number"
+        ? rawQuantite
+        : typeof rawQuantite === "string" && rawQuantite.trim() !== ""
+          ? Number(rawQuantite)
+          : Number.NaN;
+
+    return [{ id, tonnes: Number.isFinite(quantite) ? quantite : null }];
+  }),
+}));
+
+const ensembles = propres.map(
+  ({ lignes }) => new Set(lignes.map((ligne) => ligne.id)),
+);
+const memesEtablissements = new Set(
+  [...(ensembles[0] ?? [])].filter((id) =>
+    ensembles.every((ensemble) => ensemble.has(id)),
+  ),
+);
+const serie = propres.map(({ annee, lignes }) => {
+  const gardees = lignes.filter((ligne) => memesEtablissements.has(ligne.id));
+  const connues = gardees.flatMap((ligne) =>
+    ligne.tonnes === null ? [] : [ligne.tonnes],
+  );
+
+  return {
+    annee: String(annee),
+    tonnes: connues.reduce((total, tonnes) => total + tonnes, 0),
+    nbEtablissements: new Set(gardees.map((ligne) => ligne.id)).size,
+    lignesSansQuantite: gardees.length - connues.length,
+  };
+});
+
+const formatTonnes = (tonnes: number) =>
+  new Intl.NumberFormat("fr-FR", { maximumFractionDigits: 0 }).format(tonnes);
+const debut = serie[0];
+const fin = serie[serie.length - 1];
+const maximum = serie.reduce((max, valeur) =>
+  valeur.tonnes > max.tonnes ? valeur : max,
+);
+const lignesSansQuantite = serie.reduce(
+  (total, valeur) => total + valeur.lignesSansQuantite,
+  0,
+);
+const coefficient =
+  debut && fin && debut.tonnes > 0
+    ? (fin.tonnes / debut.tonnes).toFixed(1).replace(".", ",")
+    : null;
+const texteAlternatif =
+  debut && fin
+    ? `Diagramme en barres verticales : une barre par année déclarée (${serie.map((valeur) => valeur.annee).join(", ")}). Il montre les tonnes de déchets dangereux déclarées dans Bordeaux Métropole par les établissements présents aux cinq millésimes. Le total passe de ${formatTonnes(debut.tonnes)} t en ${debut.annee} à ${formatTonnes(fin.tonnes)} t en ${fin.annee}${coefficient ? `, soit ×${coefficient}` : ""}. Le maximum est atteint en ${maximum.annee} (${formatTonnes(maximum.tonnes)} t).`
+    : "Évolution des déchets dangereux déclarés dans Bordeaux Métropole.";
+
+const graphique = {
+  width: 900,
+  marginTop: 30,
+  title: "Déchets dangereux des mêmes établissements dans Bordeaux Métropole, 2005-2025",
+  subtitle:
+    debut && fin
+      ? `Le total déclaré passe de ${formatTonnes(debut.tonnes)} t à ${formatTonnes(fin.tonnes)} t entre ${debut.annee} et ${fin.annee}.`
+      : "",
+  caption:
+    `Source : déclarations de production de déchets dangereux (un millésime tous les 5 ans), 28 communes de Bordeaux Métropole, selon le code INSEE déclaré. Seuls les établissements présents aux 5 millésimes. ${lignesSansQuantite} ligne(s) sans quantité, non comptées. Production déclarée ≠ pollution.`,
+  ariaLabel: texteAlternatif,
+  x: { type: "band", label: "Année de déclaration" },
+  y: {
+    label: "Tonnes de déchets dangereux par an ↑",
+    grid: true,
+    tickFormat: (valeur: number) => valeur.toLocaleString("fr-FR"),
+  },
+  marks: [
+    Plot.barY(serie, { x: "annee", y: "tonnes", fill: "#e24a33" }),
+    Plot.text(serie, {
+      x: "annee",
+      y: "tonnes",
+      text: (valeur) => `${formatTonnes(valeur.tonnes)} t`,
+      dy: -8,
+      textAnchor: "middle",
+    }),
+    Plot.text(serie, {
+      x: "annee",
+      y: 0,
+      text: (valeur) => `${valeur.nbEtablissements} étab.`,
+      dy: -8,
+      fill: "white",
+      textAnchor: "middle",
+    }),
+    Plot.ruleY([0]),
+  ],
+};
+---
+
+<Layout title="Déchets dangereux à Bordeaux Métropole, 2005-2025">
+  <main class="mx-auto max-w-5xl px-6 py-10">
+    <p><a href="/">← Retour à l’accueil</a></p>
+    <PlotFigure options={graphique} />
+  </main>
+</Layout>
