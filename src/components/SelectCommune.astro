@@ -6,9 +6,9 @@ import { slug } from "../lib/preparationRisques.js";
 const { actuelle = "" } = Astro.props;
 ---
 
-<label class="flex flex-wrap items-center gap-2">
+<label class="flex flex-wrap items-center gap-3 border border-forest/20 bg-paper p-4 font-mono text-sm uppercase tracking-wide text-forest">
   <span>Voir une commune :</span>
-  <select id="commune" class="rounded border border-gray-400 px-2 py-1">
+  <select id="commune" class="min-w-64 border px-3 py-2 normal-case tracking-normal">
     <option value="" selected={actuelle === ""}>Toute la métropole</option>
     {
       listeCommunes.map((c) => (

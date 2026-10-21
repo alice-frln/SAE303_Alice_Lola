@@ -106,7 +106,7 @@ const graphique = {
     tickFormat: (valeur: number) => valeur.toLocaleString("fr-FR"),
   },
   marks: [
-    Plot.barY(serie, { x: "annee", y: "tonnes", fill: "#e24a33" }),
+    Plot.barY(serie, { x: "annee", y: "tonnes", fill: "#34473e" }),
     Plot.text(serie, {
       x: "annee",
       y: "tonnes",
@@ -128,8 +128,8 @@ const graphique = {
 ---
 
 <Layout title="Déchets dangereux à Bordeaux Métropole, 2005-2025">
-  <main class="mx-auto max-w-5xl px-6 py-10">
-    <p><a href="/">← Retour à l’accueil</a></p>
+  <main class="space-y-5">
+    <p class="font-mono text-xs uppercase tracking-wider"><a href="/">← Retour à l’accueil</a></p>
     <PlotFigure options={graphique} />
   </main>
 </Layout>

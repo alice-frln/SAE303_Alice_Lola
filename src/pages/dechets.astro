@@ -34,16 +34,18 @@ const maxX = Math.max(
 ---
 
 <Layout title="Déchets dangereux par commune">
-  <main class="mx-auto max-w-5xl px-6 py-10">
-    <p><a href="/">← Retour à l’accueil</a></p>
-    <h1 class="text-3xl font-bold">Gestion des déchets dangereux</h1>
-    <p>
+  <main class="space-y-5">
+    <p class="font-mono text-xs uppercase tracking-wider"><a href="/">← Retour à l’accueil</a></p>
+    <section class="border border-forest/20 bg-paper p-6 sm:p-8">
+    <p class="font-mono text-xs uppercase tracking-[0.18em] text-forest">Données communales · Bordeaux Métropole</p>
+    <h1 class="mt-2 text-3xl font-semibold text-forest sm:text-4xl">Gestion des déchets dangereux</h1>
+    <p class="mt-3 max-w-3xl leading-7 text-ink/70">
       Comparez les quantités d’incinération (D10) et de traitement physico-chimique (D9)
       pour une commune de Bordeaux Métropole.
     </p>
 
-    <label for="commune" class="mt-6 block font-semibold">Commune</label>
-    <select id="commune" name="commune" class="mt-2 rounded border px-3 py-2">
+    <label for="commune" class="mt-6 block font-mono text-sm font-semibold uppercase tracking-wider text-forest">Commune</label>
+    <select id="commune" name="commune" class="mt-2 min-w-64 border px-3 py-2.5">
       {communes.map((commune) => (
         <option value={commune} selected={commune === initialCommune}>{commune}</option>
       ))}
@@ -51,11 +53,12 @@ const maxX = Math.max(
 
     <div
       id="waste-chart"
-      class="mt-6"
+      class="plot-panel mt-6 overflow-hidden border border-forest/20 bg-paper p-3 shadow-sm sm:p-6"
       data-dechets={JSON.stringify(dechets)}
       data-max-x={maxX}
       aria-live="polite"
     ></div>
+    </section>
   </main>
 </Layout>
 
@@ -108,7 +111,7 @@ const maxX = Math.max(
             {
               x: "quantite",
               y: "operation",
-              fill: "#e24a33",
+              fill: "#34473e",
               tip: true,
               sort: { y: "-x" },
             },

@@ -1,27 +1,97 @@
 ---
-import PlotFigure from "../components/PlotFigure.astro";
 import Layout from "../layouts/Layout.astro";
-import * as Plot from "@observablehq/plot";
-import penguins from "../assets/penguins.json";
 ---
 
 <Layout>
-  <h1 class="text-2xl">Test Astro et Plot (Observablehq)</h1>
-  <p>
-    <a href="/dechets/">Explorer les déchets dangereux par commune</a>
-  </p>
-  <p>
-    <a href="/evolution-dechets/">Voir l’évolution des déchets dangereux, 2005-2025</a>
-  </p>
-  <PlotFigure
-    options={{
-      marks: [
-        Plot.dot(penguins, {
-          x: "culmen_length_mm",
-          y: "culmen_depth_mm",
-          stroke: "species",
-        }),
-      ],
-    }}
-  />
+  <main class="space-y-10">
+    <section class="relative overflow-hidden border border-forest bg-paper">
+      <div class="absolute inset-y-0 right-0 hidden w-1/3 bg-rose lg:block" aria-hidden="true"></div>
+      <div class="relative max-w-4xl px-6 py-10 sm:px-10 sm:py-14">
+        <p class="mb-5 font-mono text-xs uppercase tracking-[0.22em] text-forest">Atlas environnemental · Gironde</p>
+        <h1 class="max-w-3xl text-4xl font-semibold leading-tight tracking-tight text-forest sm:text-6xl">
+          Déchets dangereux <span class="text-ink">&amp; risques industriels</span>
+        </h1>
+        <p class="mt-6 max-w-2xl text-base leading-7 text-ink/75 sm:text-lg">
+          Explorer les déclarations de déchets, leur répartition dans le temps et les risques industriels autour des communes de Bordeaux Métropole.
+        </p>
+        <div class="mt-8 flex flex-wrap gap-3">
+          <a href="/evolution-dechets/" class="inline-flex items-center gap-3 bg-forest px-5 py-3 font-mono text-sm uppercase tracking-wide text-white no-underline transition hover:bg-ink">
+            Explorer les données <span aria-hidden="true">↗</span>
+          </a>
+          <a href="/risques/" class="inline-flex items-center gap-3 border border-forest px-5 py-3 font-mono text-sm uppercase tracking-wide text-forest no-underline transition hover:bg-rose">
+            Voir la carte des risques
+          </a>
+        </div>
+      </div>
+      <div class="relative grid grid-cols-3 border-t border-forest/20 bg-rose/70 sm:absolute sm:bottom-0 sm:right-0 sm:w-1/3 sm:border-l sm:border-t-0">
+        <div class="border-r border-forest/20 px-4 py-4 sm:px-5 sm:py-6">
+          <span class="block font-mono text-2xl font-semibold text-forest sm:text-3xl">28</span>
+          <span class="mt-1 block text-xs uppercase tracking-wide text-ink/70">communes</span>
+        </div>
+        <div class="border-r border-forest/20 px-4 py-4 sm:px-5 sm:py-6">
+          <span class="block font-mono text-2xl font-semibold text-forest sm:text-3xl">20</span>
+          <span class="mt-1 block text-xs uppercase tracking-wide text-ink/70">ans observés</span>
+        </div>
+        <div class="px-4 py-4 sm:px-5 sm:py-6">
+          <span class="block font-mono text-2xl font-semibold text-forest sm:text-3xl">5</span>
+          <span class="mt-1 block text-xs uppercase tracking-wide text-ink/70">millésimes</span>
+        </div>
+      </div>
+    </section>
+
+    <section aria-labelledby="explorer-title">
+      <div class="mb-5 flex flex-wrap items-end justify-between gap-3">
+        <div>
+          <p class="font-mono text-xs uppercase tracking-[0.2em] text-forest/70">Parcourir l’atlas</p>
+          <h2 id="explorer-title" class="mt-2 text-2xl font-semibold text-ink sm:text-3xl">Données &amp; cartographies</h2>
+        </div>
+        <span class="font-mono text-xs uppercase tracking-wider text-ink/50">Sélectionner une exploration →</span>
+      </div>
+      <div class="grid gap-4 md:grid-cols-2">
+        <a href="/evolution-dechets/" class="group flex min-h-48 flex-col justify-between border border-forest/25 bg-paper p-6 text-ink no-underline transition hover:-translate-y-1 hover:border-forest hover:shadow-lg">
+          <div class="flex items-start justify-between gap-4">
+            <span class="font-mono text-xs uppercase tracking-[0.18em] text-forest">01 · Série temporelle</span>
+            <span class="text-2xl text-forest transition-transform group-hover:translate-x-1" aria-hidden="true">↗</span>
+          </div>
+          <div>
+            <h3 class="text-xl font-semibold text-forest">Déchets dangereux · 2005–2025</h3>
+            <p class="mt-2 max-w-lg text-sm leading-6 text-ink/70">Comparer les quantités déclarées par les mêmes établissements aux cinq millésimes.</p>
+          </div>
+        </a>
+        <a href="/dechets/" class="group flex min-h-48 flex-col justify-between border border-forest/25 bg-paper p-6 text-ink no-underline transition hover:-translate-y-1 hover:border-forest hover:shadow-lg">
+          <div class="flex items-start justify-between gap-4">
+            <span class="font-mono text-xs uppercase tracking-[0.18em] text-forest">02 · Comparaison communale</span>
+            <span class="text-2xl text-forest transition-transform group-hover:translate-x-1" aria-hidden="true">↗</span>
+          </div>
+          <div>
+            <h3 class="text-xl font-semibold text-forest">Traitements par commune</h3>
+            <p class="mt-2 max-w-lg text-sm leading-6 text-ink/70">Explorer les quantités d’incinération et de traitement physico-chimique.</p>
+          </div>
+        </a>
+        <a href="/carte-dechets/" class="group flex min-h-48 flex-col justify-between border border-forest/25 bg-paper p-6 text-ink no-underline transition hover:-translate-y-1 hover:border-forest hover:shadow-lg">
+          <div class="flex items-start justify-between gap-4">
+            <span class="font-mono text-xs uppercase tracking-[0.18em] text-forest">03 · Répartition spatiale</span>
+            <span class="text-2xl text-forest transition-transform group-hover:translate-x-1" aria-hidden="true">↗</span>
+          </div>
+          <div>
+            <h3 class="text-xl font-semibold text-forest">Carte des déchets déclarés</h3>
+            <p class="mt-2 max-w-lg text-sm leading-6 text-ink/70">Situer les établissements déclarants et les zones de risques technologiques.</p>
+          </div>
+        </a>
+        <a href="/risques/" class="group flex min-h-48 flex-col justify-between border border-forest/25 bg-paper p-6 text-ink no-underline transition hover:-translate-y-1 hover:border-forest hover:shadow-lg">
+          <div class="flex items-start justify-between gap-4">
+            <span class="font-mono text-xs uppercase tracking-[0.18em] text-forest">04 · Sites &amp; territoires</span>
+            <span class="text-2xl text-forest transition-transform group-hover:translate-x-1" aria-hidden="true">↗</span>
+          </div>
+          <div>
+            <h3 class="text-xl font-semibold text-forest">Risques industriels</h3>
+            <p class="mt-2 max-w-lg text-sm leading-6 text-ink/70">Consulter les établissements, sites BASOL et périmètres PPRT, par commune.</p>
+          </div>
+        </a>
+      </div>
+    </section>
+    <p class="border-l-2 border-forest px-4 py-2 text-sm leading-6 text-ink/65">
+      Les quantités présentées sont des déclarations de production de déchets dangereux ; elles ne constituent pas une mesure de pollution.
+    </p>
+  </main>
 </Layout>
