@@ -1,0 +1,128 @@
+---
+import rawDechets from "../assets/prod_dechets_dangereux_crop.json";
+import Layout from "../layouts/Layout.astro";
+
+const operationLabels = new Map([
+  ["D10", "D10 Incinération à terre"],
+  ["D9", "D9 Traitement physico-chimique"],
+]);
+
+const dechets = rawDechets.flatMap((row) => {
+  const code = String(row.code_operation_elimination_valorisation ?? "").trim();
+  const operation = operationLabels.get(code);
+  const quantite = Number(row.quantite);
+
+  if (!row.commune || !operation || !Number.isFinite(quantite)) return [];
+  return [{ commune: row.commune, operation, quantite }];
+});
+
+const communes = Array.from(new Set(dechets.map((row) => row.commune))).sort(
+  (a, b) => a.localeCompare(b, "fr"),
+);
+const initialCommune = communes.includes("BORDEAUX") ? "BORDEAUX" : communes[0] ?? "";
+
+const totalsByCommune = new Map<string, Map<string, number>>();
+for (const row of dechets) {
+  const totals = totalsByCommune.get(row.commune) ?? new Map<string, number>();
+  totals.set(row.operation, (totals.get(row.operation) ?? 0) + row.quantite);
+  totalsByCommune.set(row.commune, totals);
+}
+const maxX = Math.max(
+  0,
+  ...Array.from(totalsByCommune.values()).flatMap((totals) => Array.from(totals.values())),
+);
+---
+
+<Layout title="Déchets dangereux par commune">
+  <main class="mx-auto max-w-5xl px-6 py-10">
+    <p><a href="/">← Retour à l’accueil</a></p>
+    <h1 class="text-3xl font-bold">Gestion des déchets dangereux</h1>
+    <p>
+      Comparez les quantités d’incinération (D10) et de traitement physico-chimique (D9)
+      pour une commune de Bordeaux Métropole.
+    </p>
+
+    <label for="commune" class="mt-6 block font-semibold">Commune</label>
+    <select id="commune" name="commune" class="mt-2 rounded border px-3 py-2">
+      {communes.map((commune) => (
+        <option value={commune} selected={commune === initialCommune}>{commune}</option>
+      ))}
+    </select>
+
+    <div
+      id="waste-chart"
+      class="mt-6"
+      data-dechets={JSON.stringify(dechets)}
+      data-max-x={maxX}
+      aria-live="polite"
+    ></div>
+  </main>
+</Layout>
+
+<script>
+  import * as Plot from "@observablehq/plot";
+
+  type WasteRow = { commune: string; operation: string; quantite: number };
+
+  const select = document.querySelector<HTMLSelectElement>("#commune");
+  const chartContainer = document.querySelector<HTMLDivElement>("#waste-chart");
+
+  if (!select || !chartContainer) {
+    throw new Error("Le sélecteur de commune ou le conteneur du graphique est introuvable.");
+  }
+
+  const encodedData = chartContainer.dataset.dechets;
+  const encodedMaxX = chartContainer.dataset.maxX;
+  if (encodedData === undefined || encodedMaxX === undefined) {
+    throw new Error("Les données du graphique sont introuvables.");
+  }
+
+  const dechets = JSON.parse(encodedData) as WasteRow[];
+  const maxX = Number(encodedMaxX);
+
+  function renderPlot() {
+    const commune = select.value;
+    const subset = dechets.filter((row) => row.commune === commune);
+
+    if (subset.length === 0) {
+      chartContainer.replaceChildren();
+      chartContainer.textContent =
+        `Aucune donnée d’incinération ou de traitement physico-chimique pour ${commune}.`;
+      return;
+    }
+
+    const chart = Plot.plot({
+      title: `Gestion des déchets dangereux à ${commune}`,
+      subtitle:
+        "Quantité en tonnes : incinération (D10) et traitement physico-chimique (D9)",
+      ariaLabel: `Quantités de déchets dangereux traitées à ${commune}, par opération`,
+      marginLeft: 180,
+      width: 900,
+      x: { label: "Quantité (tonnes/an)", grid: true, domain: [0, maxX] },
+      y: { label: null },
+      marks: [
+        Plot.barX(
+          subset,
+          Plot.groupY(
+            { x: "sum" },
+            {
+              x: "quantite",
+              y: "operation",
+              fill: "#e24a33",
+              tip: true,
+              sort: { y: "-x" },
+            },
+          ),
+        ),
+        Plot.ruleX([0]),
+      ],
+    });
+
+    chart.style.maxWidth = "100%";
+    chart.style.height = "auto";
+    chartContainer.replaceChildren(chart);
+  }
+
+  select.addEventListener("input", renderPlot);
+  renderPlot();
+</script>
