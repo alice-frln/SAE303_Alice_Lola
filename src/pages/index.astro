@@ -4,52 +4,114 @@ import EvolutionDechets from "../components/EvolutionDechets.astro";
 ---
 
 <Layout>
-  <h1>Déchets dangereux et risques industriels à Bordeaux Métropole</h1>
+  <div class="space-y-10">
+    <section class="relative overflow-hidden border border-forest bg-paper">
+      <div class="absolute inset-y-0 right-0 hidden w-1/3 bg-rose lg:block" aria-hidden="true"></div>
+      <div class="relative max-w-4xl px-6 py-10 sm:px-10 sm:py-14">
+        <p class="mb-5 font-sans text-xs font-semibold uppercase tracking-[0.22em] text-forest">Atlas environnemental · Gironde</p>
+        <h1 class="max-w-3xl text-4xl font-semibold leading-tight tracking-tight text-forest sm:text-6xl">
+          Déchets dangereux <span class="text-ink">&amp; risques industriels</span>
+        </h1>
+        <p class="mt-6 max-w-2xl text-base leading-7 text-ink/75 sm:text-lg">
+          Comprendre les risques qui évoluent et ceux qui restent moins visibles, à travers les données de Bordeaux Métropole.
+        </p>
+        <div class="mt-8 flex flex-wrap gap-3">
+          <a href="/production-dechets/" class="inline-flex items-center gap-3 bg-forest px-5 py-3 font-sans text-sm font-semibold text-white no-underline transition hover:bg-ink">
+            Explorer les déchets <span aria-hidden="true">↗</span>
+          </a>
+          <a href="/enquetes/" class="inline-flex items-center gap-3 border border-forest px-5 py-3 font-sans text-sm font-semibold text-forest no-underline transition hover:bg-rose">
+            Consulter les enquêtes
+          </a>
+        </div>
+      </div>
+      <div class="relative grid grid-cols-3 border-t border-forest/20 bg-rose/70 sm:absolute sm:bottom-0 sm:right-0 sm:w-1/3 sm:border-l sm:border-t-0">
+        <div class="border-r border-forest/20 px-4 py-4 sm:px-5 sm:py-6">
+          <span class="block font-sans text-2xl font-semibold text-forest sm:text-3xl">28</span>
+          <span class="mt-1 block text-xs text-ink/70">communes</span>
+        </div>
+        <div class="border-r border-forest/20 px-4 py-4 sm:px-5 sm:py-6">
+          <span class="block font-sans text-2xl font-semibold text-forest sm:text-3xl">6</span>
+          <span class="mt-1 block text-xs text-ink/70">zones PPRT</span>
+        </div>
+        <div class="px-4 py-4 sm:px-5 sm:py-6">
+          <span class="block font-sans text-2xl font-semibold text-forest sm:text-3xl">68</span>
+          <span class="mt-1 block text-xs text-ink/70">déclarants en 2025</span>
+        </div>
+      </div>
+    </section>
 
-  <section>
-    <h2>Un territoire face à des risques qui s'aggravent</h2>
-    <p>
-      Après les incendies de 2022 en Gironde (32 000 hectares brûlés), Bordeaux Métropole a adopté
-      en juin 2025 un <a href="https://www.bordeaux-metropole.fr/sites/MET-BXMETRO-DRUPAL/files/2025-06/Plan-de-resilience-metropolitain-06_2025.pdf">plan de résilience métropolitain (PDF)</a> pour
-      mieux anticiper les crises. Canicules, pluies plus violentes, mer montée de 20 cm qui renforce
-      les crues de la Garonne : les risques s'accumulent.
-    </p>
-  </section>
+    <section aria-labelledby="risques-title" class="grid gap-4 md:grid-cols-2">
+      <article class="border border-forest/25 bg-paper p-6 sm:p-8">
+        <p class="font-sans text-xs font-semibold uppercase tracking-[0.18em] text-forest">01 · Risques climatiques</p>
+        <h2 id="risques-title" class="mt-3 text-2xl font-semibold leading-tight text-forest sm:text-3xl">
+          Un territoire face à des risques qui s’aggravent
+        </h2>
+        <p class="mt-4 leading-7 text-ink/75">
+          Après les incendies de 2022 en Gironde (32 000 hectares brûlés), Bordeaux Métropole a adopté en juin 2025 un
+          <a href="https://www.bordeaux-metropole.fr/sites/MET-BXMETRO-DRUPAL/files/2025-06/Plan-de-resilience-metropolitain-06_2025.pdf">plan de résilience métropolitain (PDF)</a>
+          pour mieux anticiper les crises. Canicules, pluies plus violentes, mer montée de 20 cm qui renforce les crues de la Garonne : les risques s’accumulent.
+        </p>
+      </article>
 
-  <section>
-    <h2>Les risques industriels, moins visibles mais bien présents</h2>
-    <p>
-      La métropole est aussi exposée à des risques industriels : sites Seveso, stockages chimiques,
-      déchets dangereux. Six zones PPRT entourent les sites les plus dangereux, autour d'Ambès, de
-      Bassens et de Saint-Médard-en-Jalles. En 2025, 68 établissements ont déclaré plus de
-      72 000 tonnes de déchets dangereux.
-    </p>
-    <p>
-      Un risque naît de la rencontre d'un <strong>aléa</strong> (un accident, une fuite),
-      d'un <strong>enjeu</strong> (ce qui est exposé) et d'une <strong>vulnérabilité</strong> (la
-      fragilité des personnes concernées). Une usine devient donc un risque par ce qui l'entoure : logements, écoles,
-      hôpitaux, cours d'eau.
-    </p>
-  </section>
+      <article class="border border-forest/25 bg-rose p-6 sm:p-8">
+        <p class="font-sans text-xs font-semibold uppercase tracking-[0.18em] text-forest">02 · Risques industriels</p>
+        <h2 class="mt-3 text-2xl font-semibold leading-tight text-forest sm:text-3xl">
+          Moins visibles, mais bien présents
+        </h2>
+        <p class="mt-4 leading-7 text-ink/75">
+          La métropole est aussi exposée à des risques industriels : sites Seveso, stockages chimiques, déchets dangereux. Six zones PPRT entourent les sites les plus dangereux, autour d’Ambès, de Bassens et de Saint-Médard-en-Jalles. En 2025, 68 établissements ont déclaré plus de 72 000 tonnes de déchets dangereux.
+        </p>
+        <p class="mt-3 leading-7 text-ink/75">
+          Un risque naît de la rencontre d’un <strong>aléa</strong> (un accident, une fuite), d’un <strong>enjeu</strong> (ce qui est exposé) et d’une <strong>vulnérabilité</strong> (la fragilité des personnes concernées). Une usine devient donc un risque par ce qui l’entoure : logements, écoles, hôpitaux, cours d’eau.
+        </p>
+      </article>
+    </section>
 
-  <section>
-    <h2>Pourquoi ce site ?</h2>
-    <p>
-      Ce site a pour vocation de sensibiliser les habitants de Bordeaux Métropole à leur
-      environnement et à leurs conditions de vie : où sont produits les déchets dangereux, comment
-      ils sont traités, et quels sols font l'objet d'enquêtes pour une pollution potentielle, près de
-      chez eux.
-    </p>
-  </section>
+    <section aria-labelledby="explorer-title">
+      <div class="mb-5">
+        <p class="font-sans text-xs font-semibold uppercase tracking-[0.2em] text-forest/70">Parcourir l’atlas</p>
+        <h2 id="explorer-title" class="mt-2 text-2xl font-semibold text-ink sm:text-3xl">Explorer les données</h2>
+      </div>
+      <div class="grid gap-4 md:grid-cols-2">
+        <a href="/production-dechets/" class="group flex min-h-40 flex-col justify-between border border-forest/25 bg-paper p-6 text-ink no-underline transition hover:-translate-y-1 hover:border-forest hover:shadow-lg">
+          <span class="flex items-center justify-between font-sans text-xs font-semibold uppercase tracking-[0.16em] text-forest">
+            Production &amp; gestion <span class="text-xl transition-transform group-hover:translate-x-1" aria-hidden="true">↗</span>
+          </span>
+          <span>
+            <span class="block text-xl font-semibold text-forest">Où sont produits les déchets ?</span>
+            <span class="mt-2 block text-sm leading-6 text-ink/70">Cartographier les établissements, les traitements et les zones PPRT.</span>
+          </span>
+        </a>
+        <a href="/enquetes/" class="group flex min-h-40 flex-col justify-between border border-forest/25 bg-paper p-6 text-ink no-underline transition hover:-translate-y-1 hover:border-forest hover:shadow-lg">
+          <span class="flex items-center justify-between font-sans text-xs font-semibold uppercase tracking-[0.16em] text-forest">
+            Enquêtes sur les sols <span class="text-xl transition-transform group-hover:translate-x-1" aria-hidden="true">↗</span>
+          </span>
+          <span>
+            <span class="block text-xl font-semibold text-forest">Consulter les sites enquêtés</span>
+            <span class="mt-2 block text-sm leading-6 text-ink/70">Repérer les enquêtes de qualité des sols dans les communes de la métropole.</span>
+          </span>
+        </a>
+      </div>
+    </section>
 
-  <section>
-    <h2>Une production de déchets dangereux qui a doublé en vingt ans</h2>
-    <EvolutionDechets />
-    <p>
-      En vingt ans, le nombre d'établissements déclarant des déchets dangereux dans la métropole est
-      passé de 43 à 68. Mais cette hausse n'explique pas tout : si l'on ne garde que les 25
-      établissements présents à chaque déclaration, de 2005 à 2025, leur production a tout de même
-      pratiquement doublé, de 28 853 à 57 147 tonnes par an, avec un pic à 67 485 tonnes en 2020.
-    </p>
-  </section>
+    <section class="border-l-4 border-forest bg-paper px-6 py-5 sm:px-8">
+      <p class="font-sans text-xs font-semibold uppercase tracking-[0.18em] text-forest">Pourquoi ce site ?</p>
+      <p class="mt-2 max-w-4xl leading-7 text-ink/75">
+        Ce site a pour vocation de sensibiliser les habitants de Bordeaux Métropole à leur environnement et à leurs conditions de vie : où sont produits les déchets dangereux, comment ils sont traités, et quels sols font l’objet d’enquêtes pour une pollution potentielle, près de chez eux.
+      </p>
+    </section>
+
+    <section class="overflow-hidden border border-forest/25 bg-paper p-4 sm:p-8" aria-labelledby="evolution-title">
+      <div class="mb-5 max-w-3xl">
+        <p class="font-sans text-xs font-semibold uppercase tracking-[0.18em] text-forest">2005—2025 · 5 millésimes</p>
+        <h2 id="evolution-title" class="mt-2 text-2xl font-semibold leading-tight text-forest sm:text-3xl">
+          Une production de déchets dangereux qui a doublé en vingt ans
+        </h2>
+      </div>
+      <EvolutionDechets />
+      <p class="mt-5 max-w-4xl border-t border-forest/15 pt-5 leading-7 text-ink/75">
+        En vingt ans, le nombre d’établissements déclarant des déchets dangereux dans la métropole est passé de 43 à 68. Mais cette hausse n’explique pas tout : si l’on ne garde que les 25 établissements présents à chaque déclaration, de 2005 à 2025, leur production a tout de même pratiquement doublé, de 28 853 à 57 147 tonnes par an, avec un pic à 67 485 tonnes en 2020.
+      </p>
+    </section>
+  </div>
 </Layout>
