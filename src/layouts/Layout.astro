@@ -1,5 +1,6 @@
 ---
 import "../styles/global.css";
+import logo from "../assets/img/logo_noir_sae.svg?url";
 const { title = "SAÉ – Déchets dangereux et risques industriels" } = Astro.props;
 
 const chemin = Astro.url.pathname;
@@ -33,32 +34,44 @@ const liensFooter = [
     />
     <title>{title}</title>
   </head>
-  <body>
-    <header>
-      <nav aria-label="Navigation principale">
-        <!-- Bouton provisoire, remplacé plus tard par un SVG -->
-        <a href="/" aria-current={actif("/") ? "page" : undefined}>Accueil</a>
-        <ul>
-          {
-            liensHeader.map(({ href, texte }) => (
-              <li>
-                <a href={href} aria-current={actif(href) ? "page" : undefined}>
-                  {texte}
-                </a>
-              </li>
-            ))
-          }
-        </ul>
-      </nav>
+  <body class="min-h-screen bg-rose text-ink antialiased">
+    <header class="border-b border-ink bg-forest text-white">
+      <div class="mx-auto flex max-w-7xl flex-col gap-5 px-5 py-5 sm:px-8 lg:flex-row lg:items-center lg:justify-between">
+        <a
+          href="/"
+          aria-label="Accueil"
+          aria-current={actif("/") ? "page" : undefined}
+          class="group flex items-center text-white no-underline"
+        >
+          <img src={logo} alt="" class="size-11 object-contain brightness-0 invert" />
+        </a>
+        <nav aria-label="Navigation principale" class="font-sans text-sm font-medium tracking-wide">
+          <ul class="m-0 flex list-none flex-wrap gap-2 p-0">
+            {
+              liensHeader.map(({ href, texte }) => (
+                <li>
+                  <a
+                    class="block border border-white/30 px-3 py-2 text-white no-underline transition hover:border-rose hover:bg-rose hover:text-forest"
+                    href={href}
+                    aria-current={actif(href) ? "page" : undefined}
+                  >
+                    {texte}
+                  </a>
+                </li>
+              ))
+            }
+          </ul>
+        </nav>
+      </div>
     </header>
 
-    <main>
+    <main class="mx-auto max-w-7xl px-4 py-7 sm:px-8 sm:py-10">
       <slot />
     </main>
 
-    <footer>
-      <nav aria-label="Informations sur le site">
-        <ul>
+    <footer class="border-t border-forest/20 bg-paper">
+      <nav aria-label="Informations sur le site" class="mx-auto max-w-7xl px-5 py-5 font-sans text-sm font-medium tracking-wide text-forest/70 sm:px-8">
+        <ul class="m-0 flex list-none flex-wrap gap-x-6 gap-y-2 p-0">
           {
             liensFooter.map(({ href, texte }) => (
               <li>
