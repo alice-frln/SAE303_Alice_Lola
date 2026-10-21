@@ -1,34 +1,165 @@
 ---
 import Layout from "../layouts/Layout.astro";
+
+const jeux = [
+  {
+    nom: "Production de déchets dangereux (2005, 2010, 2015, 2020 et 2025)",
+    producteur: "Ministère de la Transition écologique, via Géorisques",
+    lien: "https://www.georisques.gouv.fr/donnees/bases-de-donnees/installations-industrielles-rejetant-des-polluants",
+    site: "Géorisques",
+    maj: "Une déclaration annuelle ; cinq millésimes retenus, de 2005 à 2025",
+  },
+  {
+    nom: "Établissements polluants (ri_etab_pol_p)",
+    producteur: "BRGM",
+    lien: "https://datahub.bordeaux-metropole.fr/pages/accueil/",
+    site: "Datahub de Bordeaux Métropole",
+    maj: "Quotidienne, dernière mise à jour en 2026",
+  },
+  {
+    nom: "Sites et sols pollués, BASOL (ri_basol_p)",
+    producteur: "BRGM",
+    lien: "https://datahub.bordeaux-metropole.fr/pages/accueil/",
+    site: "Datahub de Bordeaux Métropole",
+    maj: "Quotidienne, dernière mise à jour en 2026",
+  },
+  {
+    nom: "Plans de prévention des risques technologiques (ri_pprt_s)",
+    producteur: "DDTM de la Gironde",
+    lien: "https://datahub.bordeaux-metropole.fr/pages/accueil/",
+    site: "Datahub de Bordeaux Métropole",
+    maj: "Quotidienne, dernière mise à jour en 2026",
+  },
+  {
+    nom: "Limites des communes (fv_commu_s)",
+    producteur: "Bordeaux Métropole",
+    lien: "https://datahub.bordeaux-metropole.fr/pages/accueil/",
+    site: "Datahub de Bordeaux Métropole",
+    maj: "Quotidienne, dernière mise à jour en 2026",
+  },
+];
 ---
 
-<Layout title="Sources des données">
-  <h1>Sources des données</h1>
+<Layout title="Méthode">
+  <h1>Méthode</h1>
+  <p>
+    Tout ce qui est publié ici peut être vérifié. Cette page détaille d'où viennent les données, ce
+    que nous en avons fait, et ce qu'elles ne disent pas.
+  </p>
 
   <section>
-    <h2>Sources, dates et licences</h2>
-    <p>À rédiger.</p>
-  </section>
-
-  <section>
-    <h2>Traitements appliqués</h2>
-    <p>À rédiger.</p>
-  </section>
-
-  <section>
-    <h2>Limites et biais identifiés</h2>
-    <p>À rédiger.</p>
-  </section>
-
-  <section>
-    <h2>Notebook</h2>
+    <h2>D'où viennent les données ?</h2>
     <p>
-      <a href="https://observablehq.com/d/c17af979aabfc4af">Voir le notebook Observable</a>
+      Les déclarations de déchets dangereux proviennent de <a href="https://www.georisques.gouv.fr">Géorisques</a>, le site public d'information sur les
+      risques naturels et technologiques, réalisé par le ministère de la Transition écologique et le <a href="/glossaire/#brgm">BRGM</a>, l'établissement public de référence pour les sciences de
+      la Terre. Les autres jeux de données sont publiés en open data sur le <a href="https://datahub.bordeaux-metropole.fr/pages/accueil/">Datahub de Bordeaux Métropole</a>.
+    </p>
+    <table>
+      <caption>Jeux de données utilisés</caption>
+      <thead>
+        <tr>
+          <th scope="col">Jeu de données</th>
+          <th scope="col">Producteur</th>
+          <th scope="col">Mise à jour</th>
+          <th scope="col">Où le trouver</th>
+        </tr>
+      </thead>
+      <tbody>
+        {
+          jeux.map((j) => (
+            <tr>
+              <th scope="row">{j.nom}</th>
+              <td>{j.producteur}</td>
+              <td>{j.maj}</td>
+              <td>
+                <a href={j.lien}>{j.site}</a>
+              </td>
+            </tr>
+          ))
+        }
+      </tbody>
+    </table>
+  </section>
+
+  <section>
+    <h2>Licences</h2>
+    <p>À compléter : la licence de chaque jeu de données, indiquée sur sa fiche de téléchargement.</p>
+  </section>
+
+  <section>
+    <h2>Ce que nous avons fait aux données</h2>
+    <ul>
+      <li>
+        <strong>Périmètre :</strong> seules les 28 communes de Bordeaux Métropole sont conservées, par
+        leur code INSEE pour les déclarations, par leur contour pour les points et les zones.
+      </li>
+      <li>
+        <strong>Jointure :</strong> les déclarations de déchets sont reliées aux établissements par leur
+        identifiant, pour les placer sur la carte. Les tonnes sont additionnées par établissement.
+      </li>
+      <li>
+        <strong>Valeurs écartées :</strong> un établissement déclarant 0 tonne en 2025 n'est pas
+        représenté sur la carte des déchets.
+      </li>
+      <li>
+        <strong>Évolution 2005-2025 :</strong> seuls les 25 établissements présents aux cinq
+        millésimes sont comparés, pour que la hausse ne s'explique pas par l'arrivée de nouveaux
+        déclarants.
+      </li>
+      <li>
+        <strong>Zones PPRT :</strong> 6 zones sur les 10 du fichier touchent la métropole et sont
+        affichées.
+      </li>
+      <li>
+        <strong>BASOL :</strong> 194 fiches sur les 396 du fichier sont situées dans la métropole. Pour
+        chacune, seul le statut « en cours » ou « clôturé » est connu.
+      </li>
+      <li>
+        <strong>Géométries :</strong> les contours sont redressés (sens des polygones) puis simplifiés,
+        et les coordonnées arrondies, pour alléger les pages sans changer ce qui est visible.
+      </li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>Ce qui manque ou pose problème</h2>
+    <ul>
+      <li>
+        <strong>Une production n'est pas une pollution.</strong> Un déchet dangereux déclaré est en
+        principe collecté et traité. Les rejets dans l'air et les effets réels sur l'environnement ne
+        figurent pas dans ces données.
+      </li>
+      <li>
+        <strong>Le devenir réel des déchets reste flou.</strong> Le département de traitement est
+        indiqué, mais ni le site exact ni la quantité réellement traitée. Dans le fichier complet,
+        62 lignes de mise en décharge (opération D5) ont une quantité nulle ou vide : nous n'en
+        tirons aucune conclusion.
+      </li>
+      <li>
+        <strong>Des établissements manquent à l'appel.</strong> Sept établissements de la métropole
+        (987 t de déchets) ne figurent pas dans le fichier des installations classées, et un site <a href="/glossaire/#seveso">Seveso seuil haut</a> (Cerexagri) n'a fait aucune déclaration.
+      </li>
+      <li>
+        <strong>BASOL n'est pas exhaustif.</strong> La base ne recense que les sites connus de
+        l'administration, et ne donne pas le résultat des diagnostics : l'absence de croix ne garantit
+        pas qu'un sol est sain.
+      </li>
+      <li>
+        <strong>Les habitants ne sont pas représentés.</strong> Les cartes ne montrent ni les
+        logements ni la population exposée.
+      </li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>Le notebook</h2>
+    <p>
+      L'exploration, le nettoyage et les contrôles de jointure sont documentés dans notre <a href="https://observablehq.com/d/c17af979aabfc4af">notebook Observable</a>.
     </p>
   </section>
 
   <section>
     <h2>Données téléchargeables</h2>
-    <p>À rédiger.</p>
+    <p>À compléter : les fichiers préfiltrés utilisés par le site.</p>
   </section>
 </Layout>
