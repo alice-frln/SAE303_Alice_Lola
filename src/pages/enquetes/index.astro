@@ -19,50 +19,53 @@ const procheUnKm = basol.filter((b) =>
 ---
 
 <Layout title="Enquêtes sur la qualité des sols">
-  <h1>Enquêtes sur la qualité des sols</h1>
+  <div class="space-y-8">
+    <header class="space-y-3">
+      <h1 class="text-3xl font-semibold text-forest sm:text-4xl">Enquêtes sur la qualité des sols</h1>
+      <p class="max-w-4xl leading-7 text-ink/75">
+        Avec l'arrivée de nombreuses industries, une question se pose : dans quel état laissent-elles
+        les sols ? Pour s'assurer que l'environnement reste sain malgré l'activité humaine,
+        l'administration recense les sites dont le sol est pollué, ou pourrait l'être, dans la base
+        <a href="/glossaire/#basol">BASOL</a>. Chaque fiche correspond à un site suivi : diagnostic,
+        travaux de dépollution ou surveillance.
+      </p>
+    </header>
 
-  <section>
-    <h2>Sous l'industrie, la question des sols</h2>
-    <p>
-      Avec l'arrivée de nombreuses industries, une question se pose : dans quel état laissent-elles
-      les sols ? Pour s'assurer que l'environnement reste sain malgré l'activité humaine,
-      l'administration recense les sites dont le sol est pollué, ou pourrait l'être, dans la base <a href="/glossaire/#basol">BASOL</a>. Chaque fiche correspond à un site suivi : diagnostic,
-      travaux de dépollution ou surveillance.
-    </p>
-  </section>
+    <section class="space-y-4">
+      <div class="space-y-2">
+        <h2 class="text-2xl font-semibold text-forest">Où les sols sont-ils surveillés ?</h2>
+        <p class="max-w-4xl leading-7 text-ink/75">
+          Les croix sont les sites BASOL, en rouge quand le dossier est encore en cours. Les points sont
+          les établissements polluants. Choisissez une commune pour la voir en détail.
+        </p>
+      </div>
+      <SelectCommune />
+      <CarteRisques
+        donnees={donneesCarteRisques}
+        titre="Les zones potentiellement polluées en fonction des emplacements des établissements rejetant des déchets dangereux"
+        sousTitre="Il existe une concentration des enquêtes sur la qualité des sols tout autour des entreprises mais également vers le centre de Bordeaux. Même sans avoir les résultats, on note une réelle inquiétude quant à la qualité des sols dans les zones industrielles mais également habitées."
+        source="Sources : établissements polluants, sites et sols pollués (BASOL), plans de prévention des risques technologiques, limites communales (Bordeaux Métropole, 28 communes). BASOL : base nationale des sites et sols pollués ou potentiellement pollués ; une croix par fiche. Les habitations ne sont pas représentées."
+        alt={`Carte de Bordeaux Métropole avec ${etablissements.length} établissements polluants représentés par des points, ${basol.length} sites BASOL (dossiers de sols pollués ou potentiellement pollués, dont on ne connaît que le statut d'instruction) représentés par des croix et ${pprt.length} zones de plan de prévention des risques technologiques. Les zones PPRT sont concentrées autour d'Ambès, de Bassens et de Saint-Médard-en-Jalles. ${etabPprt} établissements sur ${etablissements.length} et ${basolPprt} sites pollués sur ${basol.length} sont dans une zone PPRT ; la plupart sont dispersés dans le reste de la métropole, surtout à Bordeaux, Mérignac et sur la rive droite.`}
+      />
+    </section>
 
-  <section>
-    <h2>Où les sols sont-ils surveillés ?</h2>
-    <p>
-      Les croix sont les sites BASOL, en rouge quand le dossier est encore en cours. Les points sont
-      les établissements polluants. Choisissez une commune pour la voir en détail.
-    </p>
-    <SelectCommune />
-    <CarteRisques
-      donnees={donneesCarteRisques}
-      titre="Les zones potentiellement polluées en fonction des emplacements des établissements rejetant des déchets dangereux"
-      sousTitre="Il existe une concentration des enquêtes sur la qualité des sols tout autour des entreprises mais également vers le centre de Bordeaux. Même sans avoir les résultats, on note une réelle inquiétude quant à la qualité des sols dans les zones industrielles mais également habitées."
-      source="Sources : établissements polluants, sites et sols pollués (BASOL), plans de prévention des risques technologiques, limites communales (Bordeaux Métropole, 28 communes). BASOL : base nationale des sites et sols pollués ou potentiellement pollués ; une croix par fiche. Les habitations ne sont pas représentées."
-      alt={`Carte de Bordeaux Métropole avec ${etablissements.length} établissements polluants représentés par des points, ${basol.length} sites BASOL (dossiers de sols pollués ou potentiellement pollués, dont on ne connaît que le statut d'instruction) représentés par des croix et ${pprt.length} zones de plan de prévention des risques technologiques. Les zones PPRT sont concentrées autour d'Ambès, de Bassens et de Saint-Médard-en-Jalles. ${etabPprt} établissements sur ${etablissements.length} et ${basolPprt} sites pollués sur ${basol.length} sont dans une zone PPRT ; la plupart sont dispersés dans le reste de la métropole, surtout à Bordeaux, Mérignac et sur la rive droite.`}
-    />
-  </section>
+    <section class="space-y-3 border-t border-forest/20 pt-6">
+      <h2 class="text-2xl font-semibold text-forest">Les enquêtes suivent la trace de l'industrie</h2>
+      <p class="max-w-4xl leading-7 text-ink/75">
+        Les sites surveillés se regroupent autour des établissements industriels : {procheUnKm} sur {basol.length}, soit {Math.round((procheUnKm / basol.length) * 100)} %, sont à
+        moins d'un kilomètre d'un établissement polluant. Bordeaux en compte {basolBordeaux} à elle
+        seule. Cette concentration montre que les organismes publics surveillent en priorité les sols
+        là où l'industrie est, ou a été, présente.
+      </p>
+    </section>
 
-  <section>
-    <h2>Les enquêtes suivent la trace de l'industrie</h2>
-    <p>
-      Les sites surveillés se regroupent autour des établissements industriels : {procheUnKm} sur {basol.length}, soit {Math.round((procheUnKm / basol.length) * 100)} %, sont à
-      moins d'un kilomètre d'un établissement polluant. Bordeaux en compte {basolBordeaux} à elle
-      seule. Cette concentration montre que les organismes publics surveillent en priorité les sols
-      là où l'industrie est, ou a été, présente.
-    </p>
-  </section>
-
-  <section>
-    <h2>Des résultats encore inconnus, mais un suivi en place</h2>
-    <p>
-      Nous ne connaissons pas le résultat de ces enquêtes : BASOL indique seulement si un dossier est
-      en cours ou clôturé. Mais {basolEnCours} dossiers sont encore ouverts, ce qui montre que
-      l'évolution de l'état des sols reste suivie de près.
-    </p>
-  </section>
+    <section class="space-y-3 border-t border-forest/20 pt-6">
+      <h2 class="text-2xl font-semibold text-forest">Des résultats encore inconnus, mais un suivi en place</h2>
+      <p class="max-w-4xl leading-7 text-ink/75">
+        Nous ne connaissons pas le résultat de ces enquêtes : BASOL indique seulement si un dossier est
+        en cours ou clôturé. Mais {basolEnCours} dossiers sont encore ouverts, ce qui montre que
+        l'évolution de l'état des sols reste suivie de près.
+      </p>
+    </section>
+  </div>
 </Layout>

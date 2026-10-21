@@ -3,54 +3,58 @@ import Layout from "../layouts/Layout.astro";
 ---
 
 <Layout title="À propos">
-  <h1>À propos</h1>
+  <article class="mx-auto max-w-5xl space-y-8">
+    <header class="space-y-3">
+      <h1 class="text-3xl font-semibold text-forest sm:text-4xl">À propos</h1>
+    </header>
 
-  <section>
-    <h2>Un défi open data</h2>
-    <p>
-      Ce site répond au défi « Prévention des risques à Bordeaux Métropole », proposé par Bordeaux
-      Métropole sur <a href="https://defis.data.gouv.fr">defis.data.gouv.fr</a>. La question posée :
-      comment aider les habitants à prendre conscience des risques naturels, technologiques et
-      industriels auxquels ils sont exposés, et à s'y préparer ?
-    </p>
-    <p>
-      Ce défi fait partie de l'<a href="https://www.data.gouv.fr/topics/prevention-des-risques-a-bordeaux-metropole">Open Data University</a>,
-      un programme porté par l'association Latitudes avec data.gouv.fr. Il invite des étudiantes et
-      étudiants de toute la France à réutiliser des données publiques ouvertes sur des sujets de
-      société et d'environnement.
-    </p>
-  </section>
+    <section class="space-y-3">
+      <h2 class="border-b border-forest/20 pb-2 text-2xl font-semibold text-forest">Un défi open data</h2>
+      <p class="max-w-4xl leading-7 text-ink/75">
+        Ce site répond au défi « Prévention des risques à Bordeaux Métropole », proposé par Bordeaux
+        Métropole sur <a href="https://defis.data.gouv.fr">defis.data.gouv.fr</a>. La question posée :
+        comment aider les habitants à prendre conscience des risques naturels, technologiques et
+        industriels auxquels ils sont exposés, et à s'y préparer ?
+      </p>
+      <p class="max-w-4xl leading-7 text-ink/75">
+        Ce défi fait partie de l'<a href="https://www.data.gouv.fr/topics/prevention-des-risques-a-bordeaux-metropole">Open Data University</a>,
+        un programme porté par l'association Latitudes avec data.gouv.fr. Il invite des étudiantes et
+        étudiants de toute la France à réutiliser des données publiques ouvertes sur des sujets de
+        société et d'environnement.
+      </p>
+    </section>
 
-  <section>
-    <h2>Notre angle : les déchets dangereux et les sols</h2>
-    <p>
-      Parmi tous les risques du territoire, nous avons choisi de nous concentrer sur ceux liés à
-      l'industrie : où sont produits les déchets dangereux, comment ils sont traités, quelles zones
-      sont encadrées par un plan de prévention et quels sols sont surveillés. Notre objectif est que
-      chaque habitante et chaque habitant puisse comprendre ce qui se trouve près de chez soi.
-    </p>
-  </section>
+    <section class="space-y-3 border-t border-forest/20 pt-6">
+      <h2 class="text-2xl font-semibold text-forest">Notre angle : les déchets dangereux et les sols</h2>
+      <p class="max-w-4xl leading-7 text-ink/75">
+        Parmi tous les risques du territoire, nous avons choisi de nous concentrer sur ceux liés à
+        l'industrie : où sont produits les déchets dangereux, comment ils sont traités, quelles zones
+        sont encadrées par un plan de prévention et quels sols sont surveillés. Notre objectif est que
+        chaque habitante et chaque habitant puisse comprendre ce qui se trouve près de chez soi.
+      </p>
+    </section>
 
-  <section>
-    <h2>Qui sommes-nous ?</h2>
-    <p>
-      Ce site a été réalisé par Alice [Nom] et Lola Brouart, deux étudiantes en deuxième année de
-      BUT Métiers du Multimédia et de l'Internet (MMI) à l'Université de Franche-Comté, dans le cadre
-      de la SAÉ 3.03. Données, cartes, textes et code : tout a été fait à quatre mains.
-    </p>
-    <p>
-      Elles sont, de l'avis général, vraiment trop cool, et tout le monde les admire. Les sources
-      de cette affirmation restent toutefois à documenter sur la page <a href="/methode/">Méthode</a>.
-    </p>
-  </section>
+    <section class="space-y-3 border-t border-forest/20 pt-6">
+      <h2 class="text-2xl font-semibold text-forest">Qui sommes-nous ?</h2>
+      <p class="max-w-4xl leading-7 text-ink/75">
+        Ce site a été réalisé par Alice Frelin et Lola Brouart, deux étudiantes en deuxième année de
+        BUT Métiers du Multimédia et de l'Internet (MMI) à l'Université de Franche-Comté, dans le cadre
+        de la SAÉ 3.03. Données, cartes, textes et code : tout a été fait à quatre mains.
+      </p>
+      <p class="max-w-4xl leading-7 text-ink/75">
+        Elles sont, de l'avis général, vraiment trop cool, et tout le monde les admire. Les sources
+        de cette affirmation restent toutefois à documenter sur la page <a href="/methode/">Méthode</a>.
+      </p>
+    </section>
 
-  <section>
-    <h2>Voir les coulisses</h2>
-    <ul>
-      <li><a href="https://observablehq.com/d/c17af979aabfc4af">Le notebook Observable</a>, où les données ont été explorées et nettoyées</li>
-      <li><a href="https://github.com/alice-frln/SAE303_Alice_Lola">Le code source du site</a> sur GitHub</li>
-      <li><a href="/methode/">Les sources et la méthode</a></li>
-      <li><a href="/contact/">Nous écrire</a></li>
-    </ul>
-  </section>
+    <section class="space-y-3 border-t border-forest/20 pt-6">
+      <h2 class="text-2xl font-semibold text-forest">Voir les coulisses</h2>
+      <ul class="list-disc space-y-2 pl-6 leading-7 text-ink/75">
+        <li><a href="https://observablehq.com/d/c17af979aabfc4af">Le notebook Observable</a>, où les données ont été explorées et nettoyées</li>
+        <li><a href="https://github.com/alice-frln/SAE303_Alice_Lola">Le code source du site</a> sur GitHub</li>
+        <li><a href="/methode/">Les sources et la méthode</a></li>
+        <li><a href="/contact/">Nous écrire</a></li>
+      </ul>
+    </section>
+  </article>
 </Layout>
