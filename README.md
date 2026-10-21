@@ -1,9 +1,9 @@
 - URL site WEB :
-- URL Notebook Observable :
-- Nom :
-- Prénom :
-- Nom binome :
-- Prénom binome :
+- URL Notebook Observable : https://observablehq.com/d/c17af979aabfc4af
+- Nom : Frelin
+- Prénom : Alice
+- Nom binome : Brouart
+- Prénom binome : Lola
 
 # Remarques :
 
