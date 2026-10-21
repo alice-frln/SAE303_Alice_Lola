@@ -32,15 +32,15 @@ export function carteDechets({ communes, pprt, sites }, { width = 720, nbNoms = 
     color: {
       type: "categorical",
       domain: ["Hors zone PPRT", "Dans une zone PPRT"],
-      range: ["#2b6cb0", "#c05621"],
+      range: ["#34473e", "#000000"],
       legend: true,
     },
     marks: [
-      Plot.geo(communes, { fill: "#f1f1ee", stroke: "white", strokeWidth: 1 }),
+      Plot.geo(communes, { fill: "#eee7e9", stroke: "white", strokeWidth: 1 }),
       Plot.geo(pprt, { fill: "#ed8936", fillOpacity: 0.3, stroke: "#c05621", strokeWidth: 1.2 }),
       Plot.text(communes.features, Plot.centroid({
         text: (d) => d.properties.nom,
-        fill: "#8a8a85",
+        fill: "#34473e",
         fontSize: 9,
         stroke: "white",
         strokeWidth: 3,
@@ -54,15 +54,15 @@ export function carteDechets({ communes, pprt, sites }, { width = 720, nbNoms = 
 
       Plot.text(etiquettes.slice(0, 1), {
         x: "lon", y: "lat", text: (d) => `${d.nom.split(" ")[0]} · ${fr(d.tonnes)} t`,
-        dx: 34, textAnchor: "start", fontSize: 11, fontWeight: "bold", fill: "#1a202c", stroke: "white", strokeWidth: 3,
+        dx: 34, textAnchor: "start", fontSize: 11, fontWeight: "bold", fill: "#000000", stroke: "white", strokeWidth: 3,
       }),
       Plot.text(etiquettes.slice(1), {
         x: "lon", y: "lat", text: (d) => `${d.nom.split(" ").slice(0, 2).join(" ")} · ${fr(d.tonnes)} t`,
-        dy: -14, fontSize: 10, fontWeight: "bold", fill: "#1a202c", stroke: "white", strokeWidth: 3,
+        dy: -14, fontSize: 10, fontWeight: "bold", fill: "#000000", stroke: "white", strokeWidth: 3,
       }),
       ...reperes.flatMap((r, i) => [
-        Plot.dot([r], { r: "t", frameAnchor: "bottom-left", dx: 45 + 75 * i, dy: -40, fill: "none", stroke: "#555" }),
-        Plot.text([r], { frameAnchor: "bottom-left", dx: 45 + 75 * i, dy: -2, text: (d) => fr(d.t) + " t", fontSize: 9, fill: "#555" }),
+        Plot.dot([r], { r: "t", frameAnchor: "bottom-left", dx: 45 + 75 * i, dy: -40,         fill: "none", stroke: "#000000" }),
+        Plot.text([r], { frameAnchor: "bottom-left", dx: 45 + 75 * i, dy: -2, text: (d) => fr(d.t) + " t", fontSize: 9, fill: "#000000" }),
       ]),
     ],
   });
