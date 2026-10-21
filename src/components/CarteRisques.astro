@@ -1,0 +1,20 @@
+---
+// Route A / C : rendu au build, le lecteur ne reçoit que le SVG.
+import { JSDOM } from "jsdom";
+import { carteRisques } from "../charts/carteRisques.js";
+import { simplifierTraces } from "../lib/svg.js";
+
+const { donnees, titre, sousTitre, source, alt } = Astro.props;
+
+const figure = carteRisques(donnees, {
+  width: 720,
+  titre,
+  sousTitre,
+  source,
+  alt,
+  document: new JSDOM("").window.document,
+});
+simplifierTraces(figure);
+---
+
+<div class="carte-risques" set:html={figure.outerHTML} />

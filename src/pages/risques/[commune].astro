@@ -1,0 +1,45 @@
+---
+// Route C : une page par commune, générée au build avec getStaticPaths.
+import Layout from "../../layouts/Layout.astro";
+import CarteRisques from "../../components/CarteRisques.astro";
+import SelectCommune from "../../components/SelectCommune.astro";
+import { donneesCarteRisques, listeCommunes } from "../../data/carteRisques.js";
+import { filtrerCommune, slug } from "../../lib/preparationRisques.js";
+
+export function getStaticPaths() {
+  return listeCommunes.map(({ nom, insee }) => ({
+    params: { commune: slug(nom) },
+    props: { nom, insee },
+  }));
+}
+
+const { commune } = Astro.params;
+const { nom, insee } = Astro.props;
+
+// La même fonction que pour la métropole, appelée sur une seule commune
+const donnees = filtrerCommune(donneesCarteRisques, insee);
+const { etablissements, basol, pprt } = donnees;
+const etabPprt = etablissements.filter((e) => e.dansPprt).length;
+const basolEnCours = basol.filter((b) => b.enCours).length;
+
+const pluriel = (n, mot) => `${n} ${mot}${n > 1 ? "s" : ""}`;
+const titre = `${nom} : ${pluriel(etablissements.length, "établissement")} polluant${etablissements.length > 1 ? "s" : ""}, ${pluriel(basol.length, "site")} BASOL`;
+const sousTitre =
+  `${pluriel(basolEnCours, "dossier")} de sol pollué en cours d'instruction. ` +
+  (pprt.length
+    ? `${pluriel(pprt.length, "zone")} PPRT touche${pprt.length > 1 ? "nt" : ""} la commune ; ${etabPprt} établissement${etabPprt > 1 ? "s y sont" : " y est"} situé${etabPprt > 1 ? "s" : ""}.`
+    : "Aucune zone PPRT ne touche la commune.");
+---
+
+<Layout>
+  <main class="mx-auto max-w-3xl space-y-4 p-4">
+    <SelectCommune actuelle={commune} />
+    <CarteRisques
+      donnees={donnees}
+      titre={titre}
+      sousTitre={sousTitre}
+      source="Sources : établissements polluants, sites et sols pollués (BASOL), plans de prévention des risques technologiques, limites communales (Bordeaux Métropole). BASOL : base nationale des sites et sols pollués ou potentiellement pollués ; une croix par fiche. Les habitations ne sont pas représentées."
+      alt={`Carte de la commune de ${nom} avec ${pluriel(etablissements.length, "établissement")} polluant${etablissements.length > 1 ? "s" : ""} représenté${etablissements.length > 1 ? "s" : ""} par des points, ${pluriel(basol.length, "site")} BASOL représenté${basol.length > 1 ? "s" : ""} par des croix, dont ${basolEnCours} en cours d'instruction, et ${pluriel(pprt.length, "zone")} de plan de prévention des risques technologiques. ${etabPprt} établissement${etabPprt > 1 ? "s" : ""} sur ${etablissements.length} ${etabPprt > 1 ? "sont" : "est"} dans une zone PPRT.`}
+    />
+  </main>
+</Layout>

@@ -1,0 +1,28 @@
+---
+// Navigation entre les pages communes (TP3 : select + location.pathname)
+import { listeCommunes } from "../data/carteRisques.js";
+import { slug } from "../lib/preparationRisques.js";
+
+const { actuelle = "" } = Astro.props;
+---
+
+<label class="flex flex-wrap items-center gap-2">
+  <span>Voir une commune :</span>
+  <select id="commune" class="rounded border border-gray-400 px-2 py-1">
+    <option value="" selected={actuelle === ""}>Toute la métropole</option>
+    {
+      listeCommunes.map((c) => (
+        <option value={slug(c.nom)} selected={slug(c.nom) === actuelle}>
+          {c.nom}
+        </option>
+      ))
+    }
+  </select>
+</label>
+
+<script>
+  document.querySelector("#commune")?.addEventListener("change", (evt) => {
+    const value = (evt.target as HTMLSelectElement).value;
+    location.pathname = value ? `/risques/${value}/` : "/risques/";
+  });
+</script>
