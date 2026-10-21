@@ -31,16 +31,15 @@ const sousTitre =
     : "Aucune zone PPRT ne touche la commune.");
 ---
 
-<Layout>
-  <main class="space-y-5">
-    <p class="font-mono text-xs uppercase tracking-wider"><a href="/">← Retour à l’accueil</a></p>
-    <SelectCommune actuelle={commune} />
-    <CarteRisques
-      donnees={donnees}
-      titre={titre}
-      sousTitre={sousTitre}
-      source="Sources : établissements polluants, sites et sols pollués (BASOL), plans de prévention des risques technologiques, limites communales (Bordeaux Métropole). BASOL : base nationale des sites et sols pollués ou potentiellement pollués ; une croix par fiche. Les habitations ne sont pas représentées."
-      alt={`Carte de la commune de ${nom} avec ${pluriel(etablissements.length, "établissement")} polluant${etablissements.length > 1 ? "s" : ""} représenté${etablissements.length > 1 ? "s" : ""} par des points, ${pluriel(basol.length, "site")} BASOL représenté${basol.length > 1 ? "s" : ""} par des croix, dont ${basolEnCours} en cours d'instruction, et ${pluriel(pprt.length, "zone")} de plan de prévention des risques technologiques. ${etabPprt} établissement${etabPprt > 1 ? "s" : ""} sur ${etablissements.length} ${etabPprt > 1 ? "sont" : "est"} dans une zone PPRT.`}
-    />
-  </main>
+<Layout title={`Enquêtes sur la qualité des sols – ${nom}`}>
+  <h1>Enquêtes sur la qualité des sols à {nom}</h1>
+
+  <SelectCommune actuelle={commune} />
+  <CarteRisques
+    donnees={donnees}
+    titre={titre}
+    sousTitre={sousTitre}
+    source="Sources : établissements polluants, sites et sols pollués (BASOL), plans de prévention des risques technologiques, limites communales (Bordeaux Métropole). BASOL : base nationale des sites et sols pollués ou potentiellement pollués ; une croix par fiche. Les habitations ne sont pas représentées."
+    alt={`Carte de la commune de ${nom} avec ${pluriel(etablissements.length, "établissement")} polluant${etablissements.length > 1 ? "s" : ""} représenté${etablissements.length > 1 ? "s" : ""} par des points, ${pluriel(basol.length, "site")} BASOL représenté${basol.length > 1 ? "s" : ""} par des croix, dont ${basolEnCours} en cours d'instruction, et ${pluriel(pprt.length, "zone")} de plan de prévention des risques technologiques. ${etabPprt} établissement${etabPprt > 1 ? "s" : ""} sur ${etablissements.length} ${etabPprt > 1 ? "sont" : "est"} dans une zone PPRT.`}
+  />
 </Layout>

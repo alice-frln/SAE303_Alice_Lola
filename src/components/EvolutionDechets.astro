@@ -1,5 +1,4 @@
 ---
-import Layout from "../layouts/Layout.astro";
 import * as Plot from "@observablehq/plot";
 import PlotFigure from "../components/PlotFigure.astro";
 import dechets2005 from "../assets/Prod_dechets_dangereux_2005_crop.json";
@@ -127,9 +126,4 @@ const graphique = {
 };
 ---
 
-<Layout title="Déchets dangereux à Bordeaux Métropole, 2005-2025">
-  <main class="space-y-5">
-    <p class="font-mono text-xs uppercase tracking-wider"><a href="/">← Retour à l’accueil</a></p>
-    <PlotFigure options={graphique} />
-  </main>
-</Layout>
+<PlotFigure options={graphique} />

@@ -1,0 +1,69 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import CarteRisques from "../../components/CarteRisques.astro";
+import SelectCommune from "../../components/SelectCommune.astro";
+import { donneesCarteRisques } from "../../data/carteRisques.js";
+import * as d3 from "d3";
+
+const { etablissements, basol, pprt } = donneesCarteRisques;
+const etabPprt = etablissements.filter((e) => e.dansPprt).length;
+const basolPprt = basol.filter((b) => b.dansPprt).length;
+const basolEnCours = basol.filter((b) => b.enCours).length;
+const basolBordeaux = basol.filter((b) => b.insee === "33063").length;
+
+// Sites BASOL à moins d'un kilomètre d'un établissement polluant
+const R = 6371;
+const procheUnKm = basol.filter((b) =>
+  etablissements.some((e) => d3.geoDistance([b.lon, b.lat], [e.lon, e.lat]) * R < 1),
+).length;
+---
+
+<Layout title="Enquêtes sur la qualité des sols">
+  <h1>Enquêtes sur la qualité des sols</h1>
+
+  <section>
+    <h2>Sous l'industrie, la question des sols</h2>
+    <p>
+      Avec l'arrivée de nombreuses industries, une question se pose : dans quel état laissent-elles
+      les sols ? Pour s'assurer que l'environnement reste sain malgré l'activité humaine,
+      l'administration recense les sites dont le sol est pollué, ou pourrait l'être, dans la base
+      <a href="/glossaire/#basol">BASOL</a>. Chaque fiche correspond à un site suivi : diagnostic,
+      travaux de dépollution ou surveillance.
+    </p>
+  </section>
+
+  <section>
+    <h2>Où les sols sont-ils surveillés ?</h2>
+    <p>
+      Les croix sont les sites BASOL, en rouge quand le dossier est encore en cours. Les points sont
+      les établissements polluants. Choisissez une commune pour la voir en détail.
+    </p>
+    <SelectCommune />
+    <CarteRisques
+      donnees={donneesCarteRisques}
+      titre="Les zones potentiellement polluées en fonction des emplacements des établissements rejetant des déchets dangereux"
+      sousTitre="Il existe une concentration des enquêtes sur la qualité des sols tout autour des entreprises mais également vers le centre de Bordeaux. Même sans avoir les résultats, on note une réelle inquiétude quant à la qualité des sols dans les zones industrielles mais également habitées."
+      source="Sources : établissements polluants, sites et sols pollués (BASOL), plans de prévention des risques technologiques, limites communales (Bordeaux Métropole, 28 communes). BASOL : base nationale des sites et sols pollués ou potentiellement pollués ; une croix par fiche. Les habitations ne sont pas représentées."
+      alt={`Carte de Bordeaux Métropole avec ${etablissements.length} établissements polluants représentés par des points, ${basol.length} sites BASOL (dossiers de sols pollués ou potentiellement pollués, dont on ne connaît que le statut d'instruction) représentés par des croix et ${pprt.length} zones de plan de prévention des risques technologiques. Les zones PPRT sont concentrées autour d'Ambès, de Bassens et de Saint-Médard-en-Jalles. ${etabPprt} établissements sur ${etablissements.length} et ${basolPprt} sites pollués sur ${basol.length} sont dans une zone PPRT ; la plupart sont dispersés dans le reste de la métropole, surtout à Bordeaux, Mérignac et sur la rive droite.`}
+    />
+  </section>
+
+  <section>
+    <h2>Les enquêtes suivent la trace de l'industrie</h2>
+    <p>
+      Les sites surveillés se regroupent autour des établissements industriels : {procheUnKm} sur {basol.length}, soit {Math.round((procheUnKm / basol.length) * 100)} %, sont à
+      moins d'un kilomètre d'un établissement polluant. Bordeaux en compte {basolBordeaux} à elle
+      seule. Cette concentration montre que les organismes publics surveillent en priorité les sols
+      là où l'industrie est, ou a été, présente.
+    </p>
+  </section>
+
+  <section>
+    <h2>Des résultats encore inconnus, mais un suivi en place</h2>
+    <p>
+      Nous ne connaissons pas le résultat de ces enquêtes : BASOL indique seulement si un dossier est
+      en cours ou clôturé. Mais {basolEnCours} dossiers sont encore ouverts, ce qui montre que
+      l'évolution de l'état des sols reste suivie de près.
+    </p>
+  </section>
+</Layout>

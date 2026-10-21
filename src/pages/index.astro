@@ -1,97 +1,55 @@
 ---
 import Layout from "../layouts/Layout.astro";
+import EvolutionDechets from "../components/EvolutionDechets.astro";
 ---
 
 <Layout>
-  <main class="space-y-10">
-    <section class="relative overflow-hidden border border-forest bg-paper">
-      <div class="absolute inset-y-0 right-0 hidden w-1/3 bg-rose lg:block" aria-hidden="true"></div>
-      <div class="relative max-w-4xl px-6 py-10 sm:px-10 sm:py-14">
-        <p class="mb-5 font-mono text-xs uppercase tracking-[0.22em] text-forest">Atlas environnemental · Gironde</p>
-        <h1 class="max-w-3xl text-4xl font-semibold leading-tight tracking-tight text-forest sm:text-6xl">
-          Déchets dangereux <span class="text-ink">&amp; risques industriels</span>
-        </h1>
-        <p class="mt-6 max-w-2xl text-base leading-7 text-ink/75 sm:text-lg">
-          Explorer les déclarations de déchets, leur répartition dans le temps et les risques industriels autour des communes de Bordeaux Métropole.
-        </p>
-        <div class="mt-8 flex flex-wrap gap-3">
-          <a href="/evolution-dechets/" class="inline-flex items-center gap-3 bg-forest px-5 py-3 font-mono text-sm uppercase tracking-wide text-white no-underline transition hover:bg-ink">
-            Explorer les données <span aria-hidden="true">↗</span>
-          </a>
-          <a href="/risques/" class="inline-flex items-center gap-3 border border-forest px-5 py-3 font-mono text-sm uppercase tracking-wide text-forest no-underline transition hover:bg-rose">
-            Voir la carte des risques
-          </a>
-        </div>
-      </div>
-      <div class="relative grid grid-cols-3 border-t border-forest/20 bg-rose/70 sm:absolute sm:bottom-0 sm:right-0 sm:w-1/3 sm:border-l sm:border-t-0">
-        <div class="border-r border-forest/20 px-4 py-4 sm:px-5 sm:py-6">
-          <span class="block font-mono text-2xl font-semibold text-forest sm:text-3xl">28</span>
-          <span class="mt-1 block text-xs uppercase tracking-wide text-ink/70">communes</span>
-        </div>
-        <div class="border-r border-forest/20 px-4 py-4 sm:px-5 sm:py-6">
-          <span class="block font-mono text-2xl font-semibold text-forest sm:text-3xl">20</span>
-          <span class="mt-1 block text-xs uppercase tracking-wide text-ink/70">ans observés</span>
-        </div>
-        <div class="px-4 py-4 sm:px-5 sm:py-6">
-          <span class="block font-mono text-2xl font-semibold text-forest sm:text-3xl">5</span>
-          <span class="mt-1 block text-xs uppercase tracking-wide text-ink/70">millésimes</span>
-        </div>
-      </div>
-    </section>
+  <h1>Déchets dangereux et risques industriels à Bordeaux Métropole</h1>
 
-    <section aria-labelledby="explorer-title">
-      <div class="mb-5 flex flex-wrap items-end justify-between gap-3">
-        <div>
-          <p class="font-mono text-xs uppercase tracking-[0.2em] text-forest/70">Parcourir l’atlas</p>
-          <h2 id="explorer-title" class="mt-2 text-2xl font-semibold text-ink sm:text-3xl">Données &amp; cartographies</h2>
-        </div>
-        <span class="font-mono text-xs uppercase tracking-wider text-ink/50">Sélectionner une exploration →</span>
-      </div>
-      <div class="grid gap-4 md:grid-cols-2">
-        <a href="/evolution-dechets/" class="group flex min-h-48 flex-col justify-between border border-forest/25 bg-paper p-6 text-ink no-underline transition hover:-translate-y-1 hover:border-forest hover:shadow-lg">
-          <div class="flex items-start justify-between gap-4">
-            <span class="font-mono text-xs uppercase tracking-[0.18em] text-forest">01 · Série temporelle</span>
-            <span class="text-2xl text-forest transition-transform group-hover:translate-x-1" aria-hidden="true">↗</span>
-          </div>
-          <div>
-            <h3 class="text-xl font-semibold text-forest">Déchets dangereux · 2005–2025</h3>
-            <p class="mt-2 max-w-lg text-sm leading-6 text-ink/70">Comparer les quantités déclarées par les mêmes établissements aux cinq millésimes.</p>
-          </div>
-        </a>
-        <a href="/dechets/" class="group flex min-h-48 flex-col justify-between border border-forest/25 bg-paper p-6 text-ink no-underline transition hover:-translate-y-1 hover:border-forest hover:shadow-lg">
-          <div class="flex items-start justify-between gap-4">
-            <span class="font-mono text-xs uppercase tracking-[0.18em] text-forest">02 · Comparaison communale</span>
-            <span class="text-2xl text-forest transition-transform group-hover:translate-x-1" aria-hidden="true">↗</span>
-          </div>
-          <div>
-            <h3 class="text-xl font-semibold text-forest">Traitements par commune</h3>
-            <p class="mt-2 max-w-lg text-sm leading-6 text-ink/70">Explorer les quantités d’incinération et de traitement physico-chimique.</p>
-          </div>
-        </a>
-        <a href="/carte-dechets/" class="group flex min-h-48 flex-col justify-between border border-forest/25 bg-paper p-6 text-ink no-underline transition hover:-translate-y-1 hover:border-forest hover:shadow-lg">
-          <div class="flex items-start justify-between gap-4">
-            <span class="font-mono text-xs uppercase tracking-[0.18em] text-forest">03 · Répartition spatiale</span>
-            <span class="text-2xl text-forest transition-transform group-hover:translate-x-1" aria-hidden="true">↗</span>
-          </div>
-          <div>
-            <h3 class="text-xl font-semibold text-forest">Carte des déchets déclarés</h3>
-            <p class="mt-2 max-w-lg text-sm leading-6 text-ink/70">Situer les établissements déclarants et les zones de risques technologiques.</p>
-          </div>
-        </a>
-        <a href="/risques/" class="group flex min-h-48 flex-col justify-between border border-forest/25 bg-paper p-6 text-ink no-underline transition hover:-translate-y-1 hover:border-forest hover:shadow-lg">
-          <div class="flex items-start justify-between gap-4">
-            <span class="font-mono text-xs uppercase tracking-[0.18em] text-forest">04 · Sites &amp; territoires</span>
-            <span class="text-2xl text-forest transition-transform group-hover:translate-x-1" aria-hidden="true">↗</span>
-          </div>
-          <div>
-            <h3 class="text-xl font-semibold text-forest">Risques industriels</h3>
-            <p class="mt-2 max-w-lg text-sm leading-6 text-ink/70">Consulter les établissements, sites BASOL et périmètres PPRT, par commune.</p>
-          </div>
-        </a>
-      </div>
-    </section>
-    <p class="border-l-2 border-forest px-4 py-2 text-sm leading-6 text-ink/65">
-      Les quantités présentées sont des déclarations de production de déchets dangereux ; elles ne constituent pas une mesure de pollution.
+  <section>
+    <h2>Un territoire face à des risques qui s'aggravent</h2>
+    <p>
+      Après les incendies de 2022 en Gironde (32 000 hectares brûlés), Bordeaux Métropole a adopté
+      en juin 2025 un <a href="https://www.bordeaux-metropole.fr/sites/MET-BXMETRO-DRUPAL/files/2025-06/Plan-de-resilience-metropolitain-06_2025.pdf">plan de résilience métropolitain (PDF)</a> pour
+      mieux anticiper les crises. Canicules, pluies plus violentes, mer montée de 20 cm qui renforce
+      les crues de la Garonne : les risques s'accumulent.
     </p>
-  </main>
+  </section>
+
+  <section>
+    <h2>Les risques industriels, moins visibles mais bien présents</h2>
+    <p>
+      La métropole est aussi exposée à des risques industriels : sites Seveso, stockages chimiques,
+      déchets dangereux. Six zones PPRT entourent les sites les plus dangereux, autour d'Ambès, de
+      Bassens et de Saint-Médard-en-Jalles. En 2025, 68 établissements ont déclaré plus de
+      72 000 tonnes de déchets dangereux.
+    </p>
+    <p>
+      Un risque naît de la rencontre d'un <strong>aléa</strong> (un accident, une fuite),
+      d'un <strong>enjeu</strong> (ce qui est exposé) et d'une <strong>vulnérabilité</strong> (la
+      fragilité des personnes concernées). Une usine devient donc un risque par ce qui l'entoure : logements, écoles,
+      hôpitaux, cours d'eau.
+    </p>
+  </section>
+
+  <section>
+    <h2>Pourquoi ce site ?</h2>
+    <p>
+      Ce site a pour vocation de sensibiliser les habitants de Bordeaux Métropole à leur
+      environnement et à leurs conditions de vie : où sont produits les déchets dangereux, comment
+      ils sont traités, et quels sols font l'objet d'enquêtes pour une pollution potentielle, près de
+      chez eux.
+    </p>
+  </section>
+
+  <section>
+    <h2>Une production de déchets dangereux qui a doublé en vingt ans</h2>
+    <EvolutionDechets />
+    <p>
+      En vingt ans, le nombre d'établissements déclarant des déchets dangereux dans la métropole est
+      passé de 43 à 68. Mais cette hausse n'explique pas tout : si l'on ne garde que les 25
+      établissements présents à chaque déclaration, de 2005 à 2025, leur production a tout de même
+      pratiquement doublé, de 28 853 à 57 147 tonnes par an, avec un pic à 67 485 tonnes en 2020.
+    </p>
+  </section>
 </Layout>

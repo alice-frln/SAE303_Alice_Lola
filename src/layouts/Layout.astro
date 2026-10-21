@@ -1,7 +1,21 @@
 ---
 import "../styles/global.css";
-import logo from "../assets/img/logo_noir_sae.svg?url";
 const { title = "SAÉ – Déchets dangereux et risques industriels" } = Astro.props;
+
+const chemin = Astro.url.pathname;
+const actif = (href) => (href === "/" ? chemin === "/" : chemin.startsWith(href));
+
+const liensHeader = [
+  { href: "/glossaire/", texte: "Glossaire" },
+  { href: "/production-dechets/", texte: "Production et gestion des déchets" },
+  { href: "/enquetes/", texte: "Enquêtes" },
+  { href: "/sources/", texte: "Sources des données" },
+];
+const liensFooter = [
+  { href: "/contact/", texte: "Contact" },
+  { href: "/a-propos/", texte: "À propos" },
+  { href: "/mentions-legales/", texte: "Mentions légales" },
+];
 ---
 
 <!doctype html>
@@ -19,30 +33,43 @@ const { title = "SAÉ – Déchets dangereux et risques industriels" } = Astro.p
     />
     <title>{title}</title>
   </head>
-  <body class="min-h-screen bg-rose text-ink antialiased">
-    <div class="min-h-screen">
-      <header class="border-b border-ink bg-forest text-white">
-        <div class="mx-auto flex max-w-7xl flex-col gap-5 px-5 py-5 sm:px-8 lg:flex-row lg:items-center lg:justify-between">
-          <a href="/" aria-label="Accueil" class="group flex items-center text-white no-underline">
-            <img src={logo} alt="" class="size-11 object-contain brightness-0 invert" />
-          </a>
-          <nav aria-label="Navigation principale" class="flex flex-wrap gap-2 font-mono text-xs uppercase tracking-wider sm:text-sm">
-            <a class="border border-white/30 px-3 py-2 text-white no-underline transition hover:border-rose hover:bg-rose hover:text-forest" href="/">Accueil</a>
-            <a class="border border-white/30 px-3 py-2 text-white no-underline transition hover:border-rose hover:bg-rose hover:text-forest" href="/evolution-dechets/">Évolution 2005–2025</a>
-            <a class="border border-white/30 px-3 py-2 text-white no-underline transition hover:border-rose hover:bg-rose hover:text-forest" href="/carte-dechets/">Carte des déchets</a>
-            <a class="border border-white/30 px-3 py-2 text-white no-underline transition hover:border-rose hover:bg-rose hover:text-forest" href="/risques/">Carte des risques</a>
-          </nav>
-        </div>
-      </header>
-      <div class="mx-auto max-w-7xl px-4 py-7 sm:px-8 sm:py-10">
-        <slot />
-      </div>
-      <footer class="border-t border-forest/20 bg-paper">
-        <div class="mx-auto flex max-w-7xl flex-col gap-2 px-5 py-5 font-mono text-xs uppercase tracking-wider text-forest/70 sm:flex-row sm:items-center sm:justify-between sm:px-8">
-          <span>Observatoire territorial · Bordeaux Métropole</span>
-          <span>Déclarations de déchets &amp; risques industriels</span>
-        </div>
-      </footer>
-    </div>
+  <body>
+    <header>
+      <nav aria-label="Navigation principale">
+        <!-- Bouton provisoire, remplacé plus tard par un SVG -->
+        <a href="/" aria-current={actif("/") ? "page" : undefined}>Accueil</a>
+        <ul>
+          {
+            liensHeader.map(({ href, texte }) => (
+              <li>
+                <a href={href} aria-current={actif(href) ? "page" : undefined}>
+                  {texte}
+                </a>
+              </li>
+            ))
+          }
+        </ul>
+      </nav>
+    </header>
+
+    <main>
+      <slot />
+    </main>
+
+    <footer>
+      <nav aria-label="Informations sur le site">
+        <ul>
+          {
+            liensFooter.map(({ href, texte }) => (
+              <li>
+                <a href={href} aria-current={actif(href) ? "page" : undefined}>
+                  {texte}
+                </a>
+              </li>
+            ))
+          }
+        </ul>
+      </nav>
+    </footer>
   </body>
 </html>
