@@ -1,8 +1,42 @@
 ---
 import Layout from "../layouts/Layout.astro";
+
+const destinataire = "lola.brouart@edu.univ-fcomte.fr";
 ---
 
 <Layout title="Contact">
   <h1>Contact</h1>
-  <p>À rédiger.</p>
+  <p>
+    Une question, une remarque sur les données ou une difficulté d'accès au site ? Écrivez-nous.
+  </p>
+
+  <!-- Sans JavaScript, le formulaire s'envoie directement vers la messagerie (mailto) -->
+  <form id="contact" action={`mailto:${destinataire}`} method="post" enctype="text/plain">
+    <p>
+      <label for="email">Votre adresse e-mail</label>
+      <input id="email" name="email" type="email" autocomplete="email" required />
+    </p>
+    <p>
+      <label for="message">Votre message</label>
+      <textarea id="message" name="message" rows="8" required></textarea>
+    </p>
+    <p>
+      <button type="submit">Envoyer</button>
+    </p>
+    <p>L'envoi ouvre votre logiciel de messagerie avec le message prérempli.</p>
+  </form>
+
+  <script is:inline define:vars={{ destinataire }}>
+    // Ouvre la messagerie du lecteur avec un objet et un corps lisibles
+    document.querySelector("#contact")?.addEventListener("submit", (evt) => {
+      evt.preventDefault();
+      const formulaire = evt.target;
+      const email = formulaire.email.value;
+      const message = formulaire.message.value;
+      const objet = "Contact depuis le site Déchets dangereux à Bordeaux Métropole";
+      const corps = `${message}\n\n---\nRépondre à : ${email}`;
+      location.href =
+        `mailto:${destinataire}?subject=${encodeURIComponent(objet)}&body=${encodeURIComponent(corps)}`;
+    });
+  </script>
 </Layout>
