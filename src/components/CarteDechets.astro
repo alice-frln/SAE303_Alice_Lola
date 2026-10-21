@@ -1,0 +1,41 @@
+---
+// Route A (au build) : la carte ne change pas chez le lecteur,
+// on n'envoie que le SVG final, sans les géométries ni Plot.
+import { JSDOM } from "jsdom";
+import { carteDechets } from "../charts/carteDechets.js";
+import {
+  preparerCommunes,
+  preparerPprt,
+  preparerDechets,
+  preparerSites,
+} from "../lib/preparation.js";
+import carteCommunes from "../assets/fv_commu_s.geojson?raw";
+import zonesPprt from "../assets/ri_pprt_s.geojson?raw";
+import localisations from "../assets/ri_etab_pol_p.json";
+import declarations from "../assets/Prod_dechets_dangereux_2025_crop.json";
+
+const communes = preparerCommunes(JSON.parse(carteCommunes));
+const pprt = preparerPprt(JSON.parse(zonesPprt), communes);
+const sites = preparerSites(localisations, preparerDechets(declarations), communes, pprt);
+
+const figure = carteDechets(
+  { communes, pprt, sites },
+  { width: 720, document: new JSDOM("").window.document },
+);
+
+// Contours simplifiés : sommets arrondis au pixel, doublons consécutifs retirés.
+// Les géométries ont des dizaines de milliers de points, bien plus que l'écran n'en affiche.
+function simplifierTrace(d) {
+  return d.replace(/M[^MZ]+Z?/g, (anneau) => {
+    const ferme = anneau.endsWith("Z");
+    const points = anneau.replace(/[MZ]/g, "").split("L").map((p) => p.split(",").map((v) => Math.round(+v)));
+    const garde = points.filter((p, i) => i === 0 || p[0] !== points[i - 1][0] || p[1] !== points[i - 1][1]);
+    return "M" + garde.map((p) => p.join(",")).join("L") + (ferme ? "Z" : "");
+  });
+}
+for (const path of figure.querySelectorAll("path[d]")) {
+  path.setAttribute("d", simplifierTrace(path.getAttribute("d")));
+}
+---
+
+<div class="carte-dechets" set:html={figure.outerHTML} />
