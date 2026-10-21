@@ -1,5 +1,6 @@
 ---
 import "../styles/global.css";
+import logo from "../assets/img/logo_noir_sae.svg?url";
 const { title = "SAÉ – Déchets dangereux et risques industriels" } = Astro.props;
 ---
 
@@ -10,18 +11,38 @@ const { title = "SAÉ – Déchets dangereux et risques industriels" } = Astro.p
     <meta name="viewport" content="width=device-width" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="generator" content={Astro.generator} />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Aguafina+Script&family=Funnel+Display:wght@300..800&family=Inter:wght@100;200;300;400;500;600;700;800;900&family=League+Gothic&family=Mona+Sans:ital,wght@0,200..900;1,200..900&family=Playfair+Display:wght@700&family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&family=Quicksand:wght@300..700&display=swap"
+      rel="stylesheet"
+    />
     <title>{title}</title>
   </head>
-  <body>
-    <slot />
+  <body class="min-h-screen bg-rose text-ink antialiased">
+    <div class="min-h-screen">
+      <header class="border-b border-ink bg-forest text-white">
+        <div class="mx-auto flex max-w-7xl flex-col gap-5 px-5 py-5 sm:px-8 lg:flex-row lg:items-center lg:justify-between">
+          <a href="/" aria-label="Accueil" class="group flex items-center text-white no-underline">
+            <img src={logo} alt="" class="size-11 object-contain brightness-0 invert" />
+          </a>
+          <nav aria-label="Navigation principale" class="flex flex-wrap gap-2 font-mono text-xs uppercase tracking-wider sm:text-sm">
+            <a class="border border-white/30 px-3 py-2 text-white no-underline transition hover:border-rose hover:bg-rose hover:text-forest" href="/">Accueil</a>
+            <a class="border border-white/30 px-3 py-2 text-white no-underline transition hover:border-rose hover:bg-rose hover:text-forest" href="/evolution-dechets/">Évolution 2005–2025</a>
+            <a class="border border-white/30 px-3 py-2 text-white no-underline transition hover:border-rose hover:bg-rose hover:text-forest" href="/carte-dechets/">Carte des déchets</a>
+            <a class="border border-white/30 px-3 py-2 text-white no-underline transition hover:border-rose hover:bg-rose hover:text-forest" href="/risques/">Carte des risques</a>
+          </nav>
+        </div>
+      </header>
+      <div class="mx-auto max-w-7xl px-4 py-7 sm:px-8 sm:py-10">
+        <slot />
+      </div>
+      <footer class="border-t border-forest/20 bg-paper">
+        <div class="mx-auto flex max-w-7xl flex-col gap-2 px-5 py-5 font-mono text-xs uppercase tracking-wider text-forest/70 sm:flex-row sm:items-center sm:justify-between sm:px-8">
+          <span>Observatoire territorial · Bordeaux Métropole</span>
+          <span>Déclarations de déchets &amp; risques industriels</span>
+        </div>
+      </footer>
+    </div>
   </body>
 </html>
-
-<style>
-  html,
-  body {
-    margin: 0;
-    width: 100%;
-    height: 100%;
-  }
-</style>

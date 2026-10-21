@@ -17,4 +17,4 @@ const figure = carteRisques(donnees, {
 simplifierTraces(figure);
 ---
 
-<div class="carte-risques" set:html={figure.outerHTML} />
+<figure class="map-panel overflow-hidden border border-forest/20 bg-paper p-3 shadow-sm sm:p-6" set:html={figure.outerHTML} />
