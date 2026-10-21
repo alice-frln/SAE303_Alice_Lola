@@ -5,26 +5,50 @@ const destinataire = "lola.brouart@edu.univ-fcomte.fr";
 ---
 
 <Layout title="Contact">
-  <h1>Contact</h1>
-  <p>
-    Une question, une remarque sur les données ou une difficulté d'accès au site ? Écrivez-nous.
-  </p>
+  <article class="mx-auto max-w-5xl space-y-8">
+    <header class="space-y-3">
+      <h1 class="text-3xl font-semibold text-forest sm:text-4xl">Contact</h1>
+      <p class="max-w-4xl leading-7 text-ink/75">
+        Une question, une remarque sur les données ou une difficulté d'accès au site ? Écrivez-nous.
+      </p>
+    </header>
 
-  <!-- Sans JavaScript, le formulaire s'envoie directement vers la messagerie (mailto) -->
-  <form id="contact" action={`mailto:${destinataire}`} method="post" enctype="text/plain">
-    <p>
-      <label for="email">Votre adresse e-mail</label>
-      <input id="email" name="email" type="email" autocomplete="email" required />
-    </p>
-    <p>
-      <label for="message">Votre message</label>
-      <textarea id="message" name="message" rows="8" required></textarea>
-    </p>
-    <p>
-      <button type="submit">Envoyer</button>
-    </p>
-    <p>L'envoi ouvre votre logiciel de messagerie avec le message prérempli.</p>
-  </form>
+    <section class="max-w-3xl space-y-4 border-t border-forest/20 pt-6">
+      <!-- Sans JavaScript, le formulaire s'envoie directement vers la messagerie (mailto) -->
+      <form id="contact" class="space-y-5" action={`mailto:${destinataire}`} method="post" enctype="text/plain">
+        <div class="space-y-2">
+          <label class="block font-medium text-forest" for="email">Votre adresse e-mail</label>
+          <input
+            class="w-full rounded-sm border border-forest/30 bg-paper px-4 py-3 text-ink outline-none transition focus:border-forest focus:ring-2 focus:ring-forest/25"
+            id="email"
+            name="email"
+            type="email"
+            autocomplete="email"
+            required
+          />
+        </div>
+        <div class="space-y-2">
+          <label class="block font-medium text-forest" for="message">Votre message</label>
+          <textarea
+            class="w-full resize-y rounded-sm border border-forest/30 bg-paper px-4 py-3 text-ink outline-none transition focus:border-forest focus:ring-2 focus:ring-forest/25"
+            id="message"
+            name="message"
+            rows="8"
+            required
+          ></textarea>
+        </div>
+        <button
+          class="inline-flex min-h-11 items-center justify-center rounded-sm bg-forest px-6 py-3 font-medium text-white transition hover:bg-forest/90 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-forest"
+          type="submit"
+        >
+          Envoyer
+        </button>
+        <p class="text-sm leading-6 text-ink/65">
+          L'envoi ouvre votre logiciel de messagerie avec le message prérempli.
+        </p>
+      </form>
+    </section>
+  </article>
 
   <script is:inline define:vars={{ destinataire }}>
     // Ouvre la messagerie du lecteur avec un objet et un corps lisibles

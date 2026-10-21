@@ -24,7 +24,11 @@ const liensFooter = [
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+    <link rel="icon" href="/favicon.ico" sizes="any" />
+    <link rel="manifest" href="/site.webmanifest" />
     <meta name="generator" content={Astro.generator} />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -41,17 +45,20 @@ const liensFooter = [
           href="/"
           aria-label="Accueil"
           aria-current={actif("/") ? "page" : undefined}
-          class="group flex items-center text-white no-underline"
+          class="group flex size-12 items-center justify-center self-start text-white no-underline lg:self-center"
         >
-          <img src={logo} alt="" class="size-11 object-contain brightness-0 invert" />
+          <img src={logo} alt="" class="size-10 object-contain brightness-0 invert" />
         </a>
-        <nav aria-label="Navigation principale" class="font-sans text-sm font-medium tracking-wide">
-          <ul class="m-0 flex list-none flex-wrap gap-2 p-0">
+        <nav aria-label="Navigation principale" class="font-sans text-base font-medium tracking-wide">
+          <ul class="m-0 flex list-none flex-wrap items-center gap-x-7 gap-y-2 p-0 sm:gap-x-9">
             {
               liensHeader.map(({ href, texte }) => (
                 <li>
                   <a
-                    class="block border border-white/30 px-3 py-2 text-white no-underline transition hover:border-rose hover:bg-rose hover:text-forest"
+                    class:list={[
+                      "block py-2 text-white no-underline transition-opacity hover:opacity-75",
+                      actif(href) && "underline decoration-2 underline-offset-8",
+                    ]}
                     href={href}
                     aria-current={actif(href) ? "page" : undefined}
                   >

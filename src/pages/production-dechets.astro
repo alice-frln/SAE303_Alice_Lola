@@ -5,53 +5,59 @@ import TraitementDechets from "../components/TraitementDechets.astro";
 ---
 
 <Layout title="Production et gestion des déchets">
-  <h1>Production et gestion des déchets</h1>
+  <div class="space-y-9">
+    <header class="space-y-3">
+      <h1 class="text-3xl font-semibold text-forest sm:text-4xl">Production et gestion des déchets</h1>
+      <p class="max-w-4xl leading-7 text-ink/75">
+        Dans la métropole, la production de déchets dangereux a nettement augmenté ces vingt dernières
+        années, avec un pic en 2020. Autour des sites industriels les plus dangereux, ceux classés
+        <a href="/glossaire/#seveso">Seveso seuil haut</a>, l'État met en place un
+        <a href="/glossaire/#pprt">plan de prévention des risques technologiques (PPRT)</a> pour limiter
+        les conséquences d'un accident, en particulier pour les habitantes et habitants.
+      </p>
+    </header>
 
-  <section>
-    <h2>Des déchets dangereux en hausse, des zones encadrées par l'État</h2>
-    <p>
-      Dans la métropole, la production de déchets dangereux a nettement augmenté ces vingt
-      dernières années, avec un pic en 2020. Autour des sites industriels les plus dangereux, ceux
-      classés <a href="/glossaire/#seveso">Seveso seuil haut</a>, l'État met en place un <a href="/glossaire/#pprt">plan de prévention des risques technologiques (PPRT)</a> pour
-      limiter les conséquences d'un accident, en particulier pour les habitantes et habitants.
-    </p>
-  </section>
+    <section class="space-y-4">
+      <div class="space-y-2">
+        <h2 class="text-2xl font-semibold text-forest">Où sont produits les déchets dangereux ?</h2>
+        <p class="max-w-4xl leading-7 text-ink/75">
+          Chaque cercle représente un établissement : plus il est grand, plus il a déclaré de déchets
+          dangereux en 2025. Les zones orangées sont les périmètres PPRT.
+        </p>
+      </div>
+      <CarteDechets />
+    </section>
 
-  <section>
-    <h2>Où sont produits les déchets dangereux ?</h2>
-    <p>
-      Chaque cercle représente un établissement : plus il est grand, plus il a déclaré de déchets
-      dangereux en 2025. Les zones orangées sont les périmètres PPRT.
-    </p>
-    <CarteDechets />
+    <section class="space-y-4 border-t border-forest/20 pt-6">
+      <h2 class="text-xl font-semibold text-forest">Et comment sont-ils traités ?</h2>
+      <TraitementDechets />
+    </section>
 
-    <h3>Et comment sont-ils traités ?</h3>
-    <TraitementDechets />
-  </section>
+    <section class="space-y-3 border-t border-forest/20 pt-6">
+      <h2 class="text-2xl font-semibold text-forest">Des zones à risque aux portes des quartiers habités</h2>
+      <p class="max-w-4xl leading-7 text-ink/75">
+        Les zones PPRT ne touchent pas le centre de Bordeaux, mais elles occupent une place réelle
+        dans la métropole : près de 37 km², l'équivalent d'environ 6 % de son territoire, autour
+        d'Ambès, de Bassens et de Saint-Médard-en-Jalles. Ce sont des communes habitées, où vivent des
+        milliers de personnes à proximité des sites industriels.
+      </p>
+      <p class="max-w-4xl leading-7 text-ink/75">
+        La carte révèle aussi un décalage : seuls 5,5 % des déchets dangereux sont produits à
+        l'intérieur de ces zones. Le premier producteur de la métropole, à Bassens, en est en dehors.
+        Un PPRT encadre le risque d'accident lié aux produits stockés, pas la quantité de déchets
+        produite.
+      </p>
+    </section>
 
-  <section>
-    <h2>Des zones à risque aux portes des quartiers habités</h2>
-    <p>
-      Les zones PPRT ne touchent pas le centre de Bordeaux, mais elles occupent une place réelle
-      dans la métropole : près de 37 km², l'équivalent d'environ 6 % de son territoire, autour
-      d'Ambès, de Bassens et de Saint-Médard-en-Jalles. Ce sont des communes habitées, où vivent des
-      milliers de personnes à proximité des sites industriels.
-    </p>
-    <p>
-      La carte révèle aussi un décalage : seuls 5,5 % des déchets dangereux sont produits à
-      l'intérieur de ces zones. Le premier producteur de la métropole, à Bassens, en est en dehors.
-      Un PPRT encadre le risque d'accident lié aux produits stockés, pas la quantité de déchets
-      produite.
-    </p>
-  </section>
-
-  <section>
-    <h2>Connaître son environnement, un réflexe de riverain</h2>
-    <p>
-      Les sites à risque ne sont pas relégués loin de la ville : ils côtoient des logements, des
-      écoles et des commerces. En tant que riverain, il est important de savoir ce qui se trouve
-      près de chez soi, et de connaître les consignes en cas d'accident. Pour une adresse précise, <a href="https://www.georisques.gouv.fr">Géorisques</a> indique les risques auxquels elle est
-      exposée.
-    </p>
-  </section>
+    <section class="space-y-3 border-t border-forest/20 pt-6">
+      <h2 class="text-2xl font-semibold text-forest">Connaître son environnement, un réflexe de riverain</h2>
+      <p class="max-w-4xl leading-7 text-ink/75">
+        Les sites à risque ne sont pas relégués loin de la ville : ils côtoient des logements, des
+        écoles et des commerces. En tant que riverain, il est important de savoir ce qui se trouve
+        près de chez soi, et de connaître les consignes en cas d'accident. Pour une adresse précise,
+        <a href="https://www.georisques.gouv.fr">Géorisques</a> indique les risques auxquels elle est
+        exposée.
+      </p>
+    </section>
+  </div>
 </Layout>
